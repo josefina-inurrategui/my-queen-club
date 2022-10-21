@@ -23,6 +23,7 @@ export const UserProvider = ({ children }) => {
     getUserData();
   }, [flagReload]);
 
+
   return (
     <UserContext.Provider value={{ userData, setUserData, flagReload, setFlagReload }}>
       { children }

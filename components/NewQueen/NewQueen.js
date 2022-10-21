@@ -6,6 +6,7 @@ import styles from '../../styles/Forms.module.css';
 import clientAxios from '../../config/clientAxios';
 
 const NewQueen = ({ setQueen }) => {
+  
   const urlbase = process.env.NEXT_PUBLIC_URL_BASE;
   const {
     register, handleSubmit, formState: { errors },

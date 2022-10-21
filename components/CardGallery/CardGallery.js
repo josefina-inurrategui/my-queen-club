@@ -40,7 +40,7 @@ const CardGallery = ({
                   </div>
                   <div className='d-flex justify-content-between align-items-center ps-lg-4'>
                     <span className={`text-secondary fw-light ${styles.titleName}`}>{title}</span>
-                    <button className={`btn ${styles.button}`}>Suscribete</button>
+                    <button  className={`btn ${styles.button}`}>Suscribete</button>
                   </div>
                 </>
               )

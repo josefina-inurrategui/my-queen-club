@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import Footer from '../../components/Footer/Footer';
 import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
-
 import styles from '../../styles/Galleries.module.css';
 import data from '../../data/gallery.example.json';
 import ModalPay from '../../components/ModalPay/ModalPay';
 import GeneralModal from "../../components/GeneralModal/GeneralModal"
+import BtnPaypal from '../../components/Paypal/btnPaypal';
 
-const Gallery = ({gallery: {galleryName, queenName, images, price, imageQuantity,},}) => {
+
+const Gallery = ({ gallery: { galleryName, queenName, images, price, imageQuantity, },}) => {
+
+
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -25,6 +28,7 @@ const Gallery = ({gallery: {galleryName, queenName, images, price, imageQuantity
           <h6 className={`text-uppercase fw-bolder text-center ${styles.title}`}>{galleryName}</h6>
           <h6 className={`fw-bolder text-center mb-4 ${styles.subTitle}`}>Galería de fotos de {queenName}</h6>
         </div>
+        <BtnPaypal price={price}/>
       </header>
 
       <main className='mb-5 container-fluid'>
@@ -56,6 +60,7 @@ const Gallery = ({gallery: {galleryName, queenName, images, price, imageQuantity
                   <ModalPay queen={queenName} price={price} item={galleryName} galleryName={galleryName} />
                 </GeneralModal>
               </div>
+
             ))
           }
         </section>

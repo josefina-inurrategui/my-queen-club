@@ -7,23 +7,20 @@ import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import { UserProvider } from '../context/userContext';
 import Swal from 'sweetalert2';
-
+import { getState } from '../ipState/ipState';
+import Loader from '../components/Loader/LoaderInit'
+import Error from '../components/Error';
 
 const MyApp = ({ Component, pageProps }) => {
-  // const [isScreenShoot, setIsScreenShoot] = useState(false);
-
-  // const handleKeyDown = (e) => {
-  //   // console.log(e);
-  //   if (e.code === 'ShiftLeft') {
-  //     setIsScreenShoot(true);
-  //   }
-  // };
-
-  // const handleKeyUp = () => {
-  //   setTimeout(() => {
-  //     setIsScreenShoot(false);
-  //   }, 1000);
-  // };
+  const [isScreenShoot, setIsScreenShoot] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [status, setStatus] = useState(true);
+ 
+  const handleKeyDown = (e) => {
+    if (e.code === 'ShiftLeft') {
+      setIsScreenShoot(true);
+    }
+  };
 
 
   function lockoutAlert(icon_alert, title_alert, text_alert) {
@@ -73,32 +70,44 @@ const MyApp = ({ Component, pageProps }) => {
       }
     });
     document.addEventListener('keydown', (e) => { optionsToDisable(e) })
-    // document.oncontextmenu = () => false;
-    // document.oncut = () => false;
-    // document.oncopy = () => false;
-    // document.onpaste = () => false;
-    // document.ondrag = () => false;
-    // document.ondrop = () => false;
-  });
+
+    getState()
+      .then(res => {
+        setLocation(res.state);
+        setStatus(false);
+      })
+      .catch(err => {
+        console.log(err)
+      }
+      )
+  }, [])
+     
+
+  
+  if (location === process.env.NEXT_PUBLIC_STATE ) return <Error />
+
 
   return (
-    <UserProvider>
-      {/* <div onKeyUp={handleKeyUp} onKeyDown={handleKeyDown} tabIndex={-1}> */}
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
+    <>
+    { status ? <Loader/>
+      : 
+      <UserProvider>
+          <Head>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+          </Head>
 
-        <Script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"
-        />
-
-        {/* <div className={`bg-dark vh-100 ${isScreenShoot ? 'd-block' : 'd-none'}`} /> */}
-        <Navbar />
-        <Component {...pageProps} />
-      {/* </div> */}
-      {/* <Script src="https://sdk.mercadopago.com/js/v2" /> */}
-    </UserProvider>
+          <Script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"
+          />
+          <Navbar />
+          <Component {...pageProps} />
+      </UserProvider>}
+    </>
   );
+
+
+
+
 };
 
 MyApp.propTypes = {
