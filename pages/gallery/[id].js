@@ -6,12 +6,10 @@ import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
 
 import styles from '../../styles/Galleries.module.css';
 import data from '../../data/gallery.example.json';
+import ModalPay from '../../components/ModalPay/ModalPay';
+import GeneralModal from "../../components/GeneralModal/GeneralModal"
 
-const Gallery = ({
-  gallery: {
-    galleryName, queenName, images, price, imageQuantity,
-  },
-}) => {
+const Gallery = ({gallery: {galleryName, queenName, images, price, imageQuantity,},}) => {
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -34,26 +32,29 @@ const Gallery = ({
           {
             images.map((src, i) => (
               <div key={i} className="mb-3 position-relative d-flex justify-content-center">
-                <Image src={src} alt={src} width={1322} height={1920}/>
+                <Image src={src} alt={src} width={1322} height={1920} />
                 <div className={`w-100 position-absolute top-50 start-50 translate-middle text-center ${styles.textColor} ${i !== (images.length - 1) ? 'visually-hidden' : null}`}>
                   <h4 className={`fw-bold text-uppercase mb-4 ${styles.contentTitle}`}>Contenido restringido</h4>
                   <p>
                     Para ver las {imageQuantity} fotos sin censura,
                     <br />
-                     hacé click en el botón de abajo
+                    hacé click en el botón de abajo
                   </p>
                   <div className='my-4'>
-                    <button className={`px-5 btn ${styles.button}`}>Suscríbete</button>
+                    <button className={`px-5 btn ${styles.button}`} data-bs-toggle="modal" data-bs-target='#modalPay' >Suscríbete</button>
                   </div>
                   <p>
                     <em>Precio final de la galería AR${price}</em>
                   </p>
                   <p>Si ya tenes una suscripción a esta galería,
-                  inicia sesión para poder visualizarla. </p>
+                    inicia sesión para poder visualizarla. </p>
                   <div className='my-4'>
                     <button className={`btn ${styles.outlineButton} btn-outline-dark`} data-bs-toggle="modal" data-bs-target="#singInBuy">Iniciar sesión</button>
                   </div>
                 </div>
+                <GeneralModal id='modalPay' name="Como quieres abonar ?">
+                  <ModalPay queen={queenName} price={price} item={galleryName} galleryName={galleryName} />
+                </GeneralModal>
               </div>
             ))
           }

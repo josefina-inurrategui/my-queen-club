@@ -9,6 +9,7 @@ import styles from '../styles/Home.module.css';
 import InfoSection from '../components/InfoSection/InfoSection';
 import ModalSingIn from '../components/ModalSingIn/ModalSingIn';
 import InfoSubs from '../components/InfoSubs/InfoSubs';
+import Checkout from '../components/MercadoPagoPayment/Checkout';
 
 const Home = () => {
   return (

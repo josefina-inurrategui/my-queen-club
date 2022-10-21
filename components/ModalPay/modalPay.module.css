@@ -1,0 +1,7 @@
+.box{
+    border: 2px solid var(--primary-color);
+  }
+  
+  .title{
+    color: var(--secondary-color);
+  }

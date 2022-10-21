@@ -10,6 +10,7 @@ const CardGallery = ({
 
   const handleClick = () => {
     router.push(`/gallery/${id}`);
+    
   };
 
   return (
