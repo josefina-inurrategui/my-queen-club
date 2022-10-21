@@ -3,12 +3,11 @@ import { useForm } from 'react-hook-form';
 import styles from './login.module.css';
 
 const Login = () => {
-  const urlbase = process.env.NEXT_PUBLIC_URL_BASE;
+  const urlbase = process.env.NEXT_PUBLIC_URL_BASE
   const [error, setError] = useState({});
-  const {
-    register, handleSubmit, formState: { errors },
+  const { register, handleSubmit, formState: { errors },
   } = useForm();
-
+  
   const onSubmit = async (data) => {
     const resp = await fetch(`${urlbase}/login`, {
       method: 'POST',
@@ -18,9 +17,12 @@ const Login = () => {
       },
     });
     const json = await resp.json();
+   
+ 
     if (json.status !== 400) {
       localStorage.setItem('accessToken', json.accessToken);
       localStorage.setItem('user_name', json.name);
+      localStorage.setItem('user_role' ,json.role)
       window.location.reload(true);
     } else {
       setError(json);

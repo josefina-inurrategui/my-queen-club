@@ -2,11 +2,14 @@ import Head from 'next/head';
 import Footer from '../components/Footer/Footer';
 import ModalSingIn from '../components/ModalSingIn/ModalSingIn';
 import CardHome from '../components/CardHome/CardHome';
-
 import styles from '../styles/Galleries.module.css';
 import data from '../data/queens.example.json';
+import { useEffect } from 'react';
 
 const Queens = () => {
+
+
+
   return (
     <div className={styles.bgHome}>
       <Head>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GetLocalStorage } from '../helper/GetLocalStorage';
 
 const token = GetLocalStorage('accessToken');
-const urlbase = process.env.NEXT_PUBLIC_URL_BASE;
+const urlbase =process.env.NEXT_PUBLIC_URL_BASE  ;
 
 const clientAxios = axios.create({
   baseURL: urlbase,

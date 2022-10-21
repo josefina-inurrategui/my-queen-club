@@ -10,15 +10,18 @@ export const useUser = () => {
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const [flagReload, setFlagReload] = useState(false);
+
   const getUserData = () => {
     setUserData({
       name: localStorage.getItem('user_name'),
       accessToken: localStorage.getItem('accessToken'),
     });
-  };
+  };  
+
   useEffect(() => {
     getUserData();
   }, [flagReload]);
+
 
   return (
     <UserContext.Provider value={{ userData, setUserData, flagReload, setFlagReload }}>

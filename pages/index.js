@@ -4,7 +4,6 @@ import Footer from '../components/Footer/Footer';
 import Tab from '../components/Tab/Tab';
 import carouselInfo from '../components/Carousel/carouselData.example.json';
 import carouselInfoMobile from '../components/Carousel/carouselDataMobile.example.json';
-
 import styles from '../styles/Home.module.css';
 import InfoSection from '../components/InfoSection/InfoSection';
 import ModalSingIn from '../components/ModalSingIn/ModalSingIn';
