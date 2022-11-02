@@ -12,18 +12,18 @@ import Error from '../../components/Error'
 const Admin = () => {
   const [queen, setQueen] = useState(false);
 
-  const jwt = localStorage.getItem('accessToken')
-  const role = jwt_decode(jwt).role
+  // const jwt = localStorage.getItem('accessToken')
+  // const role = jwt_decode(jwt).role
 
 
-  if (role !== 'admin') {
-    useRouter().push('/')
-  }
+  // if (role !== 'admin') {
+  //   useRouter().push('/')
+  // }
 
   return (
     <>
-      {
-        role === 'admin' ?
+      {/* {
+        role === 'admin' ? */}
         <div>
 
           <Head>
@@ -44,9 +44,9 @@ const Admin = () => {
           </main>
 
         </div>
-        :
+        {/* :
         <Error></Error>
-      }
+      // } */}
     </>
   );
 };

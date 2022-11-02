@@ -5,18 +5,31 @@ import { useForm } from 'react-hook-form';
 import CloudinaryUploadImage from '../CloudinaryUploadImage/CloudinaryUploadImage';
 import styles from '../../styles/Forms.module.css';
 import clientAxios from '../../config/clientAxios';
+import Swal from 'sweetalert2';
 
 const NewGallery = ({ queenSelect }) => {
   const [queen, setQueen] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [coverPhotoGallery, setCoverPhotoGallery] = useState('');
-
   const {
     register, handleSubmit, formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    clientAxios.post('/galleries', data)
-      .then(response => console.log(response.data));
+    data.photos = gallery
+    data.coverPhotoGallery = coverPhotoGallery[0]
+    clientAxios.post('/galleries', JSON.stringify(data))
+      .then(response => {
+        if(response.status === 200){
+        Swal.fire({
+          icon: 'success',
+          iconColor: '#D44F80',
+          title: response.data,
+          color: '#FFF8D2',
+          background: '#0A1326',
+          confirmButtonText: 'Cerrar',
+          confirmButtonColor: '#D44F80',
+        })}
+      })
   };
 
   const handleQueen = async () => {
@@ -41,10 +54,11 @@ const NewGallery = ({ queenSelect }) => {
       <div className="mb-3 pt-5">
         <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Nombre de Queen</label>
         <select className={`form-select ${styles.placeholder}`} aria-label="Default select example" {...register('idQueen', { required: true })}>
-          <option selected>Seleccione una Queen</option>
-          {
+          {/* <option selected>Seleccione una Queen</option> */}
+          <option selected>facu</option>
+          {/* {
             queen.length > 0 && queen.map(x => <option key={x._id} value={x._id}>{x.name}</option>)
-          }
+          } */}
         </select>
       </div>
       <div className="mb-3">
@@ -61,6 +75,11 @@ const NewGallery = ({ queenSelect }) => {
       <div className="mb-3">
         <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Precio de la Galeria</label>
         <input type="number" className={`form-control ${styles.placeholder}`} id="exampleInputEmail1" aria-describedby="emailHelp" {...register('price', { required: true })} />
+        {errors.exampleRequired && <span className={`${styles.title}`}>Este campo es requerido</span>}
+      </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Precio en dolares de la Galeria</label>
+        <input type="number" className={`form-control ${styles.placeholder}`} id="exampleInputEmail1" aria-describedby="emailHelp" {...register('price_USD', { required: true })} />
         {errors.exampleRequired && <span className={`${styles.title}`}>Este campo es requerido</span>}
       </div>
       <div className="mb-3">
