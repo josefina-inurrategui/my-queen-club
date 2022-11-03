@@ -75,10 +75,11 @@ const NewGallery = ({ queenSelect }) => {
         <h2 className='text-white'>CREAR GALERIA</h2>
         <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Nombre de Queen</label>
         <select className={`form-select ${styles.placeholder}`} aria-label="Default select example" {...register('idQueen', { required: true })}>
-          <option selected>Seleccione una Queen</option>
-          {
+          {/* <option selected>Seleccione una Queen</option> */}
+          <option selected>facu</option>
+          {/* {
             queen.length > 0 && queen.map(x => <option key={x._id} value={x._id}>{x.name}</option>)
-          }
+          } */}
         </select>
       </div>
       <div className="mb-3">
@@ -116,6 +117,11 @@ const NewGallery = ({ queenSelect }) => {
           <input type="number" className={`form-control ${styles.placeholder}`} id="exampleInputEmail1" aria-describedby="emailHelp" {...register('price_USD', { required: true })} />
           {errors.exampleRequired && <span className={`${styles.title}`}>Este campo es requerido</span>}
         </div>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Precio en dolares de la Galeria</label>
+        <input type="number" className={`form-control ${styles.placeholder}`} id="exampleInputEmail1" aria-describedby="emailHelp" {...register('price_USD', { required: true })} />
+        {errors.exampleRequired && <span className={`${styles.title}`}>Este campo es requerido</span>}
       </div>
       <div className="mb-3">
         <div>

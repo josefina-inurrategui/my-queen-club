@@ -44,9 +44,9 @@ const Admin = () => {
           </main>
 
         </div>
-        :
+        {/* :
         <Error></Error>
-      }
+      // } */}
     </>
   );
 };

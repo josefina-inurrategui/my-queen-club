@@ -34,9 +34,9 @@ const BtnPaypal = ({ price }) => {
                         /* MANDAMOS LA DATA DE LA COMPRA  AL BACK */
                        /*  return actions.order.capture().then((details) => {
                               
-                            const name = details.payer.name.given_name;
-                            console.log(`Transaction completed by ${name}`);
-                            console.log(data)
+                        //     const name = details.payer.name.given_name;
+                        //     console.log(`Transaction completed by ${name}`);
+                        //     console.log(data)
 
                         }) */
                         try {
