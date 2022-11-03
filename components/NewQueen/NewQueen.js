@@ -11,7 +11,9 @@ const NewQueen = ({ setQueen }) => {
   const {
     register, handleSubmit, formState: { errors },
   } = useForm();
+
   const onSubmit = async (data) => {
+    console.log(data)
     clientAxios.post('/queen', data)
       .then(response => {
         if (response.status === 200) {
@@ -31,7 +33,7 @@ const NewQueen = ({ setQueen }) => {
         Swal.fire({
           icon: 'error',
           iconColor: '#D44F80',
-          title: 'No se puede crear la Queen',
+          title: 'No se puede crear la Queen, Queen existente u otro motivo',
           color: '#FFF8D2',
           background: '#0A1326',
           confirmButtonText: 'Cerrar',

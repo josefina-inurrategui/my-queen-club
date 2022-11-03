@@ -9,7 +9,7 @@ const Login = () => {
   } = useForm();
   
   const onSubmit = async (data) => {
-    const resp = await fetch(`${urlbase}/login`, {
+    const resp = await fetch(`https://my-queen-club.herokuapp.com/login`, {
       method: 'POST',
       body: JSON.stringify({ ...data }),
       headers: {
@@ -22,7 +22,6 @@ const Login = () => {
     if (json.status !== 400) {
       localStorage.setItem('accessToken', json.accessToken);
       localStorage.setItem('user_name', json.name);
-      localStorage.setItem('user_role' ,json.role)
       window.location.reload(true);
     } else {
       setError(json);

@@ -1,6 +1,9 @@
 .cardHome {
-	transform: scale(0.99);
+	/* transform: scale(0.99); */
 	transition: .3s ease-in-out;
+  height: 920px;
+  width: 100%; 
+  object-fit: cover;
 }
 
 .cardHome:hover {

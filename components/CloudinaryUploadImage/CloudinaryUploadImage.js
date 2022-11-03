@@ -8,6 +8,7 @@ const CloudinaryUploadImage = ({ onSave, label }) => {
   const [images, setImages] = useState([]);
   const [image, setImage] = useState('');
 
+
   const createMyWidget = () => {
     const myWidget = window.cloudinary.createUploadWidget(
       {
@@ -64,6 +65,11 @@ const CloudinaryUploadImage = ({ onSave, label }) => {
     onSave(images);
   }, [images]);
 
+
+/*   useEffect(()=>{
+     setImages([])
+  ,[send]})
+ */
   return (
     <>
       <Script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript" />

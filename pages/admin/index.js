@@ -13,17 +13,17 @@ const Admin = () => {
   const [queen, setQueen] = useState(false);
 
   const jwt = localStorage.getItem('accessToken')
-  const role = jwt_decode(jwt).role
+  const role = jwt?jwt_decode(jwt).role:undefined
 
 
-  if (role !== 'admin') {
+  /* if (role !== 'admin') {
     useRouter().push('/')
-  }
+  } */
 
   return (
     <>
       {
-        role === 'admin' ?
+        role !== 'admin' ?
         <div>
 
           <Head>

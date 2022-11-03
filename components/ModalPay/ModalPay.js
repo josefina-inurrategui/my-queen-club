@@ -30,7 +30,7 @@ const ModalPay = ({ item , queen , price , galleryName} ) => {
 
   const handleClickMercadoPago = () => {
     let pedido = {price, userData , queen , galleryName}
-    fetch("http://localhost:8000/mercadopago/createPayment ", {
+    fetch(`${process.env.NEXT_PUBLIC_URL_BASE}/mercadopago/createPayment`, {
     method: 'POST' ,
     headers: {
       'Content-Type': 'application/json',

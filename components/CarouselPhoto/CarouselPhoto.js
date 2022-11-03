@@ -12,16 +12,23 @@ const CarouselPhoto = () => {
   const {
     register, handleSubmit,
   } = useForm();
+
   const onSubmit = async (data) => {
+    
+    console.log(data,"soy data")
     await clientAxios.post('/queen', data);
   };
 
   const handleQueen = async () => {
+
     const response = await clientAxios.get('/queen');
+    console.log(response.data)
     setQueen(response.data);
   };
 
   const handleCoverImage = (arrayImages) => {
+
+    console.log(arrayImages)
     setCoverImage(arrayImages);
   };
 

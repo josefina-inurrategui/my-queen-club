@@ -5,12 +5,11 @@ import CardGallery from '../../components/CardGallery/CardGallery';
 
 import styles from '../../styles/Galleries.module.css';
 import data from '../../data/galleries.example.json';
+import axios from 'axios';
 
 
-const Galleries = () => {
-
-  
-
+const Galleries = ({galerias}) => {
+   console.log(galerias)
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -20,14 +19,14 @@ const Galleries = () => {
       </Head>
 
       <header>
-        <ModalSingIn idModal='singIn'/>
+        <ModalSingIn idModal='singIn' />
         <h5 className={`text-uppercase fw-bolder text-center py-5 ${styles.title}`}>Galerias</h5>
       </header>
 
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
           {
-            data.map((info, index) => (
+            galerias.map((info, index) => (
               <div key={index} className='col-6 col-md-4 col-lg-3l'>
                 <CardGallery {...info} gallery />
               </div>
@@ -41,4 +40,11 @@ const Galleries = () => {
   );
 };
 
+export async function getServerSideProps() {
+  const res = await axios('https://backqueens-production.up.railway.app/galleries')
+   const galerias=await res.data
+  return {
+    props: { galerias}, // will be passed to the page component as props
+  }
+}
 export default Galleries;

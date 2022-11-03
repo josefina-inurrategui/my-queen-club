@@ -27,3 +27,29 @@
 .title{
   color: var(--secondary-color);
 }
+.image{
+  width:100px;
+  height: 150px;
+  object-fit: contain;
+  margin: 8px;
+  border: 1px solid var(--primary-color);
+}
+.btnDelete{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 73%;
+  height: 20px;
+  padding: 3px 7px;
+  bottom: 82%;
+  border-radius:5px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border:none;
+}
+.btnDelete:hover{
+  background-color:#fff;
+  color: var(--primary-color);
+  cursor: pointer;
+  
+}

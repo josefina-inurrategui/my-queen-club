@@ -4,12 +4,17 @@ import ModalSingIn from '../components/ModalSingIn/ModalSingIn';
 import CardHome from '../components/CardHome/CardHome';
 import styles from '../styles/Galleries.module.css';
 import data from '../data/queens.example.json';
-import { useEffect } from 'react';
-
+import { useEffect,useState  } from 'react';
+import clientAxios from '../config/clientAxios';
+import LoaderInit from "../components/Loader/LoaderInit"
 const Queens = () => {
+  const [data,setData]=useState([''])
+    useEffect(()=>{
+      clientAxios.get('/queen')
+      .then(res=>setData(res.data))
+    },[])
 
-
-
+  console.log(data)
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -22,7 +27,7 @@ const Queens = () => {
         <ModalSingIn idModal='singIn' />
         <h5 className={`text-uppercase fw-bolder text-center py-5 ${styles.title}`}>Queens</h5>
       </header>
-
+      
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
           {

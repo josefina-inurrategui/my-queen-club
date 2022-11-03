@@ -26,19 +26,35 @@ const BtnPaypal = ({ price }) => {
 
                     onCancel={data => console.log("compra cancelada")}
 
-                    onApprove={(data, actions) => {
+                    onApprove={async(data, actions) => {
                         /*  actions.order.capture();
                          console.log('compra extiosa')
                          console.log(data);
                           */
                         /* MANDAMOS LA DATA DE LA COMPRA  AL BACK */
-                        return actions.order.capture().then((details) => {
+                       /*  return actions.order.capture().then((details) => {
                               
                             const name = details.payer.name.given_name;
                             console.log(`Transaction completed by ${name}`);
                             console.log(data)
 
-                        })
+                        }) */
+                        try {
+                            const res = await axios.post("https://c6af-181-165-54-187.sa.ngrok.io/purchase/paypalIpn",{
+                                userName : 'fabri' ,
+                                gallerieName : 'black ' ,
+                                queen : 'ju lazarte' ,
+                                price : 150 ,
+                            }).then( res =>{
+                                if(res.status === 201){
+                                   alert('COMPRA EXITOSA')                                   
+                                }
+                            }
+                            )
+                        } catch (error) {                        
+                            alert("OCURRIO UN ERROR INTENTELO NUEVAMENTE EN UNOS INSTANTES")
+                            console.log(err)                           
+                        }
 
 
                     }}
