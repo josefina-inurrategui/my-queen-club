@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import styles from './register.module.css';
 
 const Register = () => {
-  const urlbase = "https://my-queen-club.herokuapp.com" /* process.env.NEXT_PUBLIC_URL_BASE */;
+  const urlbase = process.env.NEXT_PUBLIC_URL_BASE 
   const [isValid, setIsValid] = useState(true);
   const [validEmail, setValidEmail] = useState({});
   const [validUserName, setValidUserName] = useState({});
@@ -18,7 +18,7 @@ const Register = () => {
       setIsValid(false);
       return;
     }
-    const resp = await fetch(`${urlbase}/user`, {
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_URL_BASE}/user`, {
       method: 'POST',
       body: JSON.stringify({
         ...data,

@@ -9,7 +9,7 @@ const Login = () => {
   } = useForm();
   
   const onSubmit = async (data) => {
-    const resp = await fetch(`${urlbase}/login`, {
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_URL_BASE}/login`, {
       method: 'POST',
       body: JSON.stringify({ ...data }),
       headers: {
@@ -17,6 +17,7 @@ const Login = () => {
       },
     });
     const json = await resp.json();
+
    
  
     if (json.status !== 400) {

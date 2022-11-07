@@ -13,7 +13,7 @@ const BtnPaypal = ({ price }) => {
 
                     createOrder={async () => {
                         try {
-                            const res = await axios.post("http://localhost:8000/purchase/paypal", {
+                            const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_BASE}/purchase/paypal`, {
                                 amounts: 150
                             })
                             return res.data.id;
@@ -40,11 +40,11 @@ const BtnPaypal = ({ price }) => {
 
                         // })
                         try {
-                            const res = await axios.post("http://localhost:8000/purchase/paypalIpn", {
-                                userName : userName ,
-                                gallerieName : gallerieName ,
-                                queen : queen ,
-                                price : price ,
+                            const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_BASE}/purchase/paypalIpn`,{
+                                userName : 'fabri' ,
+                                gallerieName : 'black ' ,
+                                queen : 'ju lazarte' ,
+                                price : 150 ,
                             }).then( res =>{
                                 if(res.status === 201){
                                     // redirect                                    
