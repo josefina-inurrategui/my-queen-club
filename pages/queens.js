@@ -1,20 +1,21 @@
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import Footer from '../components/Footer/Footer';
 import ModalSingIn from '../components/ModalSingIn/ModalSingIn';
 import CardHome from '../components/CardHome/CardHome';
 import styles from '../styles/Galleries.module.css';
-import data from '../data/queens.example.json';
-import { useEffect,useState  } from 'react';
 import clientAxios from '../config/clientAxios';
-import LoaderInit from "../components/Loader/LoaderInit"
-const Queens = () => {
-  const [data,setData]=useState([''])
-    useEffect(()=>{
-      clientAxios.get('/queen')
-      .then(res=>setData(res.data))
-    },[])
+import LoaderInit from '../components/Loader/LoaderInit';
 
-  console.log(data)
+const Queens = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    clientAxios.get('/queen')
+      .then(res => setData(res.data));
+  }, []);
+
+  console.log(data);
+  if (data.length === 0) return <LoaderInit/>;
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -27,12 +28,12 @@ const Queens = () => {
         <ModalSingIn idModal='singIn' />
         <h5 className={`text-uppercase fw-bolder text-center py-5 ${styles.title}`}>Queens</h5>
       </header>
-      
+
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
           {
             data.map((info, index) => (
-              <div key={index} className='col-6 col-md-4 col-lg-3'>
+              <div key={index}  className='col-12 col-md-4 col-lg-4'>
                 <CardHome {...info} />
               </div>
             ))

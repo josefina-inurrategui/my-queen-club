@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import jwtDecode from 'jwt-decode';
 import styles from '../../styles/Home.module.css';
 import EditAccount from '../../components/EditAccount/EditAccount';
 import { useUser } from '../../context/userContext';
 import UserPedidos from '../../components/User/userPedidos';
-import compras from '../../data/purchase.json'
-import jwtDecode from 'jwt-decode';
+import compras from '../../data/purchase.json';
 
 const User = ({ purchase }) => {
-
-
   const { userData, flagReload, setFlagReload } = useUser();
   const [user, setUser] = useState(1);
   const router = useRouter();
@@ -19,8 +17,8 @@ const User = ({ purchase }) => {
     router.push('/');
   };
 
-  const token=jwtDecode(localStorage.getItem('accessToken'))
-  const role=token.role
+  const token = jwtDecode(localStorage.getItem('accessToken'));
+  const { role } = token;
   return (
     <div className={styles.controlUser}>
       <div className="text-center py-5">
@@ -43,18 +41,17 @@ const User = ({ purchase }) => {
                     <span onClick={() => setUser(1)}>Editar cuenta</span>
                   </div>
                   {
-                    role === 'queen' ?
-                      <div className={`nav-link ${styles.column}`}>
+                    role === 'queen'
+                      ? <div className={`nav-link ${styles.column}`}>
                         <span onClick={() => setUser(2)}>Mis Ventas</span>
                       </div>
-                      :
-                      <div className={`nav-link ${styles.column}`}>
+                      : <div className={`nav-link ${styles.column}`}>
                         <span onClick={() => setUser(2)}>Mis pedidos</span>
                       </div>
                   }
                   {
-                    role !== 'queen' &&
-                    <>
+                    role !== 'queen'
+                    && <>
                       <div className={`nav-link ${styles.column}`}>
                         <span onClick={() => setUser(3)}>Método de pago</span>
                       </div>
@@ -70,11 +67,10 @@ const User = ({ purchase }) => {
         </section>
         <section className='col-12 col-md-8 col-lg-7'>
 
-
           {user === 1 && <EditAccount />}
-          
-          { (user === 2 && role==='client')? <UserPedidos purchase={purchase}/> 
-          : user===2 && role==='queen' && <UserPedidos /* purchaseQueen={purchase} *//> }
+
+          { (user === 2 && role === 'client') ? <UserPedidos purchase={purchase}/>
+            : user === 2 && role === 'queen' && <UserPedidos /* purchaseQueen={purchase} *//> }
 
           {user === 3 && <p className='text-white'>Metodos de pago</p>}
           {user === 4 && <p className='text-white'>Hola Mundo 4</p>}

@@ -9,8 +9,11 @@ import InfoSection from '../components/InfoSection/InfoSection';
 import ModalSingIn from '../components/ModalSingIn/ModalSingIn';
 import InfoSubs from '../components/InfoSubs/InfoSubs';
 import Checkout from '../components/MercadoPagoPayment/Checkout';
+import axios from 'axios';
+import clientAxios from '../config/clientAxios';
 
-const Home = () => {
+const Home = ({galleries,queens}) => {
+
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -26,7 +29,7 @@ const Home = () => {
 
       <main className='mb-5'>
         <InfoSubs className='my-5' />
-        <Tab />
+        <Tab galleries={galleries} queens={queens} />
         <InfoSection className="my-5" />
       </main>
 
@@ -35,13 +38,18 @@ const Home = () => {
   );
 };
 
+
 export async function getStaticProps() {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
   const data = await res.json();
-
+  const dataGalleries = await clientAxios('/galleries')
+  const galerias =  dataGalleries.data;
+  const dat= await clientAxios("queen")
+  const queens=dat.data;
   return {
-    props: { data },
+    props: { data,galleries: galerias,queens:queens },
   };
 }
+
 
 export default Home;

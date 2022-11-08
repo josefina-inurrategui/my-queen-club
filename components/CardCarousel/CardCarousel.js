@@ -13,7 +13,7 @@ const CardCarousel = ({ carouselInfo, gallery, queen }) => {
   return (
     <Swiper
       slidesPerView={1}
-      spaceBetween={0}
+      spaceBetween={1}
       breakpoints={{
         640: {
           slidesPerView: 2,
@@ -28,6 +28,7 @@ const CardCarousel = ({ carouselInfo, gallery, queen }) => {
       navigation={true}
       modules={[Navigation]}
       className="mySwiper"
+      style={{marginBottom:'40px'}}
     >
       {
         carouselInfo.map((info, index) => (

@@ -2,11 +2,20 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import CardCarousel from '../CardCarousel/CardCarousel';
 import styles from './tab.module.css';
-import carouselGalleryData from '../../data/galleries.example.json';
-import carouselQueenData from '../../data/queens.example.json';
 
-const Tab = ({ className }) => {
+const Tab = ({ galleries, queens }) => {
   const [activeTab, setActiveTab] = useState(2);
+  const className = undefined;
+  const long = galleries.length / 2;
+  const galleries1 = [];
+  const galleries2 = []
+
+  galleries.forEach((res, idx) => {
+    if (idx < long)
+      galleries1.push(res)
+    else
+      galleries2.push(res)
+  })
 
   return (
     <>
@@ -46,15 +55,16 @@ const Tab = ({ className }) => {
       </ul>
       <div className="tab-content" id="pills-tabContent">
         <div className="tab-pane fade" id="pills-galerias" role="tabpanel" aria-labelledby="pills-galerias-tab">
-          <CardCarousel carouselInfo={carouselGalleryData} gallery={4} />
+          <CardCarousel carouselInfo={galleries1} gallery={5} />
+          <CardCarousel carouselInfo={galleries2} gallery={5} />
         </div>
 
         <div className="tab-pane fade show active" id="pills-queens" role="tabpanel" aria-labelledby="pills-queens-tab">
-          <CardCarousel carouselInfo={carouselQueenData} queen={5} />
+          <CardCarousel carouselInfo={queens} queen={5} />
         </div>
 
         <div className="tab-pane fade" id="pills-films" role="tabpanel"
-        aria-labelledby="pills-films-tab">
+          aria-labelledby="pills-films-tab">
           <div className='vh-100 d-flex justify-content-center align-items-center'>
             <h3 className='text-white'>Proximamente...</h3>
           </div>
@@ -63,6 +73,7 @@ const Tab = ({ className }) => {
     </>
   );
 };
+
 
 Tab.propTypes = {
   className: PropTypes.string,

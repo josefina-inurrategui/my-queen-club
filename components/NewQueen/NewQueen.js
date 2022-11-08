@@ -6,14 +6,13 @@ import styles from '../../styles/Forms.module.css';
 import clientAxios from '../../config/clientAxios';
 
 const NewQueen = ({ setQueen }) => {
-  
   const urlbase = process.env.NEXT_PUBLIC_URL_BASE;
   const {
     register, handleSubmit, formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data)
+    console.log(data);
     clientAxios.post('/queen', data)
       .then(response => {
         if (response.status === 200) {

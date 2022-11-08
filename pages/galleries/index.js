@@ -1,15 +1,14 @@
 import Head from 'next/head';
+import axios from 'axios';
 import Footer from '../../components/Footer/Footer';
 import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
 import CardGallery from '../../components/CardGallery/CardGallery';
 
 import styles from '../../styles/Galleries.module.css';
 import data from '../../data/galleries.example.json';
-import axios from 'axios';
 
-
-const Galleries = ({galerias}) => {
-   console.log(galerias)
+const Galleries = ({ galerias }) => {
+  console.log(galerias);
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -41,10 +40,10 @@ const Galleries = ({galerias}) => {
 };
 
 export async function getServerSideProps() {
-  const res = await axios('https://backqueens-production.up.railway.app/galleries')
-   const galerias=await res.data
+  const res = await axios('https://backqueens-production.up.railway.app/galleries');
+  const galerias = await res.data;
   return {
-    props: { galerias}, // will be passed to the page component as props
-  }
+    props: { galerias }, // will be passed to the page component as props
+  };
 }
 export default Galleries;

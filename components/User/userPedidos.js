@@ -1,12 +1,11 @@
-import React from 'react'
-import compras from '../../data/purchase.json'
+import React from 'react';
+import compras from '../../data/purchase.json';
 
-const UserPedidos = ({purchase}) => {
-
-    return (
+const UserPedidos = ({ purchase }) => {
+  return (
         <>
         <h2 className='text-white'>Historial de Pedidos</h2>
-            <table className={`table  text-white`}>
+            <table className={'table  text-white'}>
                 <thead>
                     <tr>
                         <th scope="col">Queen</th>
@@ -33,9 +32,7 @@ const UserPedidos = ({purchase}) => {
                 </tbody>
             </table>
         </>
-    )
+  );
 };
 
-
-export default UserPedidos
-
+export default UserPedidos;

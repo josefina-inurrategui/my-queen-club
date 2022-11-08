@@ -1,26 +1,23 @@
 import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import styles from './cardgallery.module.css';
 import ModalPay from '../ModalPay/ModalPay';
-import { useState } from 'react';
 
 const CardGallery = ({
- coverPhotoGallery, galleryName,  price, gallery,price_USD,numberPhotos
+  coverPhotoGallery, galleryName, price, gallery, price_USD, numberPhotos,
 }) => {
-
-
-
   const router = useRouter();
   const handleClick = () => {
     router.push(`/gallery/${galleryName}`);
   };
-  
+
   return (
     <div className="m-1">
       <div className={styles.cardGallery} onClick={handleClick}>
         <div className='position-relative'>
-          <img style={{height:400,width:300}} src={coverPhotoGallery} alt={galleryName}/*  height={1920} width={1200} layout="responsive" quality={100} priority  *//>
+          <img style={{ height: 400, width: '100%', objectFit: 'contain' }} src={coverPhotoGallery} alt={galleryName}/*  height={1920} width={1200} layout="responsive" quality={100} priority  */ />
           <div className='text-white px-2 py-1 bg-dark bg-opacity-75 position-absolute bottom-0 end-0 d-flex'>
             <i className="bi bi-camera me-1" />
             <div className={styles.imageQuantity}>{numberPhotos}</div>
@@ -43,11 +40,10 @@ const CardGallery = ({
                   </div>
                   <div className='d-flex justify-content-between align-items-center ps-lg-4'>
                     <span className={`text-secondary fw-light ${styles.titleName}`}>{galleryName}</span>
-                    <button   className={`btn ${styles.button}`}>Suscribete</button>
-                    
-                  
+                    <button className={`btn ${styles.button}`}>Suscribete</button>
+
                   </div>
-                  
+
                 </>
               )
           }

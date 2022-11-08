@@ -2,38 +2,37 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import Image from 'next/image';
 import CloudinaryUploadImage from '../CloudinaryUploadImage/CloudinaryUploadImage';
 import styles from '../../styles/Forms.module.css';
 import clientAxios from '../../config/clientAxios';
-import Image from 'next/image';
 
 const NewGallery = ({ queenSelect }) => {
   const [queen, setQueen] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [coverPhotoGallery, setCoverPhotoGallery] = useState('');
-  const [three, setThree] = useState([])
-  const [censoriship, setCensoriship] = useState('')
-
+  const [three, setThree] = useState([]);
+  const [censoriship, setCensoriship] = useState('');
 
   const {
     register, handleSubmit, formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
-    const dataFinished={
+    const dataFinished = {
       ...data,
-      coverPhotoGallery:coverPhotoGallery[0],
-      photoBlur:censoriship,
-      photosShow:three,
-      photos:gallery
-    }
-    console.log('hola')
-    console.log(dataFinished)
+      coverPhotoGallery: coverPhotoGallery[0],
+      photoBlur: censoriship,
+      photosShow: three,
+      photos: gallery,
+    };
+    console.log('hola');
+    console.log(dataFinished);
     /*  clientAxios.post('/galleries', data)
        .then(response => console.log(response.data)); */
   };
-/*   console.log(coverPhotoGallery) */
-  
+  /*   console.log(coverPhotoGallery) */
+
   const handleQueen = async () => {
     clientAxios.get('/queen')
       .then(response => setQueen(response.data));
@@ -48,20 +47,20 @@ const NewGallery = ({ queenSelect }) => {
   };
 
   const handleDeleteCover = (img) => {
-    setCoverPhotoGallery(coverPhotoGallery.filter(res => res !== img))
-  }
+    setCoverPhotoGallery(coverPhotoGallery.filter(res => res !== img));
+  };
 
-  const handleDeleteThree=(img)=>{
-     setThree(three.filter(res=>res!==img))
-  }
+  const handleDeleteThree = (img) => {
+    setThree(three.filter(res => res !== img));
+  };
   const handleThreeImages = (img) => {
     if (three === 3) return;
-    setThree(img)
-  }
+    setThree(img);
+  };
   const handleCensorshipImage = (img) => {
 
-  }
-/*   console.log(three,'soy las tres fotos')
+  };
+  /*   console.log(three,'soy las tres fotos')
   console.log(coverPhotoGallery,'soy cover photo') */
 
   useEffect(() => {
@@ -101,7 +100,7 @@ const NewGallery = ({ queenSelect }) => {
                   {/* <div className={`position-absolute ${styles.btnDelete}`} onClick={() => handleDeleteCover(or)}> x </div> */}
                 </div>
               </>
-            )
+            );
           })
           }
         </div>
@@ -138,7 +137,7 @@ const NewGallery = ({ queenSelect }) => {
                     {/* <div className={`position-absolute ${styles.btnDelete}`} onClick={() => handleDeleteThree(or)}> x </div> */}
                   </div>
                 </>
-              )
+              );
             })
             }
           </div>

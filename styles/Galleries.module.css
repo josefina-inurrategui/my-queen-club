@@ -33,6 +33,9 @@
 
 .textColor{
   color: var(--secondary-color);
+  width: 90%;
+  background-color: #050914a9;
+  backdrop-filter: blur(30px)
 }
 
 .contentTitle{
