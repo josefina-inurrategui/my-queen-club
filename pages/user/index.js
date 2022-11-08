@@ -1,19 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css';
 import EditAccount from '../../components/EditAccount/EditAccount';
 import { useUser } from '../../context/userContext';
+import clientAxios from '../../config/clientAxios';
+import jwt_decode from "jwt-decode";
+import TableBuy from '../../components/TableBuy/TableBuy';
+import TableSus from '../../components/TableSus/TableSus';
 
 const User = () => {
   const { userData, flagReload, setFlagReload } = useUser();
   const [user, setUser] = useState(1);
   const router = useRouter();
+  const [compras , setCompras] = useState([])
 
   const logout = () => {
     localStorage.clear();
     setFlagReload(!flagReload);
     router.push('/');
   };
+
+  if( localStorage.getItem('accessToken') != null){
+    const jwt = localStorage.getItem('accessToken')
+    const userInfo = jwt_decode(jwt)
+    userData.lastName = userInfo.lastName
+    userData.userName = userInfo.userName
+    userData.email = userInfo.email
+  }
+  const infoUser = async () =>{
+    const response = await clientAxios.get('/queen');
+  }
+  
+  const getCompras = async () =>{
+    const response = await clientAxios.get(`/purchase/usuario1`);
+    setCompras(response.data)
+  }
+
+  useEffect(() => {
+    getCompras()
+  }, [userData])
+  
 
   return (
     <div className={ styles.controlUser }>
@@ -51,10 +77,10 @@ const User = () => {
           </div>
         </section>
         <section className='col-12 col-md-8 col-lg-7'>
-          {user === 1 && <EditAccount />}
-          {user === 2 && <p className='text-white'>Hola Mundo 2</p>}
+          {user === 1 && <EditAccount name={userData.name} lastName={userData.lastName} userName={userData.userName}  email={userInfo.email}/>}
+          {user === 2 && <TableBuy data={compras} key={userInfo.userName}/>}
           {user === 3 && <p className='text-white'>Hola Mundo 3</p>}
-          {user === 4 && <p className='text-white'>Hola Mundo 4</p>}
+          {user === 4 && <TableSus data={compras} key={userInfo.userName} />}
         </section>
       </section>
     </div>
