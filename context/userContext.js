@@ -11,10 +11,11 @@ export const UserProvider = ({ children }) => {
   
   const [userData, setUserData] = useState({});
   const [flagReload, setFlagReload] = useState(false);
+  const [acept , setAcept] = useState(true);
 
   const getUserData = () => {
     setUserData({
-      name: localStorage.getItem('user_name'),
+      userName: localStorage.getItem('user_name'),
       accessToken: localStorage.getItem('accessToken'),
     });
   };
@@ -25,7 +26,7 @@ export const UserProvider = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ userData, setUserData, flagReload, setFlagReload }}>
+    <UserContext.Provider value={{ acept, setAcept, userData, setUserData, flagReload, setFlagReload }}>
       { children }
     </UserContext.Provider>
   );

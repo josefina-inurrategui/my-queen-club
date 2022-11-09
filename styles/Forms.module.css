@@ -27,3 +27,7 @@
 .title{
   color: var(--secondary-color);
 }
+
+.modal{
+  background-color: var(--bg-color);
+}

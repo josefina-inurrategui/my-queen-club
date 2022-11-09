@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css';
 import EditAccount from '../../components/EditAccount/EditAccount';
@@ -12,7 +12,7 @@ const User = () => {
   const { userData, flagReload, setFlagReload } = useUser();
   const [user, setUser] = useState(1);
   const router = useRouter();
-  const [compras , setCompras] = useState([])
+  const [compras, setCompras] = useState([])
 
   const logout = () => {
     localStorage.clear();
@@ -20,31 +20,39 @@ const User = () => {
     router.push('/');
   };
 
-  if( localStorage.getItem('accessToken') != null){
+  const infoUser = async () => {
+    const response = await clientAxios.get(`/user/${userData.userName}`);
+    userData.role = response.data.role
+    userData.email = response.data.email
+    userData.name = response.data.name
+  }
+
+  if (localStorage.getItem('accessToken') != null) {
     const jwt = localStorage.getItem('accessToken')
     const userInfo = jwt_decode(jwt)
-    userData.lastName = userInfo.lastName
     userData.userName = userInfo.userName
-    userData.email = userInfo.email
+    infoUser()
+
   }
-  const infoUser = async () =>{
-    const response = await clientAxios.get('/queen');
+
+  if(localStorage.getItem('accessToken') === null){
+    router.push('/')
   }
-  
-  const getCompras = async () =>{
-    const response = await clientAxios.get(`/purchase/usuario1`);
+
+  const getCompras = async () => {
+    const response = await clientAxios.get(`/purchase/${userData.userName}`);
     setCompras(response.data)
   }
 
   useEffect(() => {
     getCompras()
   }, [userData])
-  
+
 
   return (
-    <div className={ styles.controlUser }>
+    <div className={styles.controlUser}>
       <div className="text-center py-5">
-        <h5 className={ styles.title }>Editar cuenta</h5>
+        <h5 className={styles.title}>Editar cuenta</h5>
         <span className={` text-normal ${styles.text} `}>Bienvenido {userData.name}. En esta sección verás toda la información detallada de tú cuenta.</span>
       </div>
       <section className='row gx-0'>
@@ -62,25 +70,32 @@ const User = () => {
                   <div className={`nav-link ${styles.column}`}>
                     <span onClick={() => setUser(1)}>Editar cuenta</span>
                   </div>
-                  <div className={`nav-link ${styles.column}`}>
-                    <span onClick={() => setUser(2)}>Mis pedidos</span>
-                  </div>
-                  <div className={`nav-link ${styles.column}`}>
-                    <span onClick={() => setUser(3)}>Método de pago</span>
-                  </div>
-                  <div className={`nav-link ${styles.column}`}>
-                    <span onClick={() => setUser(4)}>Suscripciones</span>
-                  </div>
+                  {userData.role === "client" ?
+                    <div className={`nav-link ${styles.column}`}>
+                      <span onClick={() => setUser(2)}>Mis pedidos</span>
+                    </div> :
+                    <div className={`nav-link ${styles.column}`}>
+                      <span onClick={() => setUser(2)}>Mis Ventas</span>
+                    </div>}
+                  {userData.role === "client" &&
+                    <div>
+                      <div className={`nav-link ${styles.column}`}>
+                        <span onClick={() => setUser(3)}>Método de pago</span>
+                      </div>
+                      <div className={`nav-link ${styles.column}`}>
+                        <span onClick={() => setUser(4)}>Suscripciones</span>
+                      </div>
+                    </div>}
                 </nav>
               </div>
             </div>
           </div>
         </section>
         <section className='col-12 col-md-8 col-lg-7'>
-          {user === 1 && <EditAccount name={userData.name} lastName={userData.lastName} userName={userData.userName}  email={userInfo.email}/>}
-          {user === 2 && <TableBuy data={compras} key={userInfo.userName}/>}
-          {user === 3 && <p className='text-white'>Hola Mundo 3</p>}
-          {user === 4 && <TableSus data={compras} key={userInfo.userName} />}
+          {user === 1 && <EditAccount name={userData.name} lastName={userData.lastName} userName={userData.userName} email={userData.email} />}
+          {user === 2 && <TableBuy role={userData.role} data={compras} key={userData.userName} />}
+          {user === 3 && <p className='text-white'>Proximamente</p>}
+          {user === 4 && <TableSus data={compras} key={userData.userName} />}
         </section>
       </section>
     </div>

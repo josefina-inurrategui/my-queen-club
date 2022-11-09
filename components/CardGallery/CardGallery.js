@@ -9,8 +9,7 @@ const CardGallery = ({
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/gallery/${id}`);
-    
+    router.push(`/gallery/${id}`);  
   };
 
   return (
