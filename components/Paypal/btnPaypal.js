@@ -11,15 +11,16 @@ const BtnPaypal = ({ price }) => {
                 <PayPalButtons
 
                     createOrder={async () => {
-                      try {
-                        const res = await axios.post('http://localhost:8000/purchase/paypal', {
-                          amounts: 150,
-                        });
-                        return res.data.id;
-                      } catch (err) {
-                        alert('OCURRIO UN ERROR INTENTELO NUEVAMENTE EN UNOS INSTANTES');
-                        console.log(err);
-                      }
+                        try {
+                            const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_BASE}/purchase/paypal`, {
+                                amounts: 150
+                            })
+                            return res.data.id;
+                        }
+                        catch (err) {
+                            alert("OCURRIO UN ERROR INTENTELO NUEVAMENTE EN UNOS INSTANTES")
+                            console.log(err)
+                        }
                     }}
 
                     onCancel={data => console.log('compra cancelada')}
@@ -36,22 +37,25 @@ const BtnPaypal = ({ price }) => {
                         //     console.log(`Transaction completed by ${name}`);
                         //     console.log(data)
 
-                        }) */
-                      try {
-                        const respuesta = await axios.post('https://c6af-181-165-54-187.sa.ngrok.io/purchase/paypalIpn', {
-                          userName: 'fabri',
-                          gallerieName: 'black ',
-                          queen: 'ju lazarte',
-                          price: 150,
-                        }).then(res => {
-                          if (res.status === 201) {
-                            alert('COMPRA EXITOSA');
-                          }
-                        });
-                      } catch (error) {
-                        alert('OCURRIO UN ERROR INTENTELO NUEVAMENTE EN UNOS INSTANTES');
-                        console.log(error);
-                      }
+                        // })*/
+                        try {
+                            const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_BASE}/purchase/paypalIpn`,{
+                                userName : 'fabri' ,
+                                gallerieName : 'black ' ,
+                                queen : 'ju lazarte' ,
+                                price : 150 ,
+                            }).then( res =>{
+                                if(res.status === 201){
+                                    // redirect                                    
+                                }
+                            }
+                            )
+                        } catch (error) {                        
+                            alert("OCURRIO UN ERROR INTENTELO NUEVAMENTE EN UNOS INSTANTES")
+                            console.log(err)                           
+                        }
+
+
                     }}
                     onError={err => console.log('error al realizar la transaccion')}
 

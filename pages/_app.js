@@ -10,6 +10,9 @@ import { UserProvider } from '../context/userContext';
 import { getState } from '../ipState/ipState';
 import Loader from '../components/Loader/LoaderInit';
 import Error from '../components/Error';
+import Msginitial from '../components/MsgInitial/msginitial';
+import AlertSecurity from '../components/Alert/AlertSecurity';
+
 
 const MyApp = ({ Component, pageProps }) => {
   const [isScreenShoot, setIsScreenShoot] = useState(false);
@@ -61,6 +64,7 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }
 
+  
   useEffect(() => {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'PrintScreen') { // Deshabilita captura de pantalla --> Tecla (imp pnt)
@@ -84,8 +88,10 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <>
-      {status ? <Loader />
-        : <UserProvider>
+    { status ? <Loader/>
+      :
+      <UserProvider>
+        <Msginitial/>
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </Head>
@@ -95,7 +101,8 @@ const MyApp = ({ Component, pageProps }) => {
           />
           <Navbar />
           <Component {...pageProps} />
-        </UserProvider>}
+          <AlertSecurity/>
+      </UserProvider>}
     </>
   );
 };

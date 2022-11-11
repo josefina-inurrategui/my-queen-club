@@ -18,7 +18,7 @@ const Register = () => {
       setIsValid(false);
       return;
     }
-    const resp = await fetch(`${urlbase}user`, {
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_URL_BASE}user`, {
       method: 'POST',
       body: JSON.stringify({
         ...data,

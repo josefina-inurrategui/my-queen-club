@@ -16,7 +16,6 @@ const Login = () => {
       },
     });
     const json = await resp.json();
-
     if (json.status !== 400) {
       localStorage.setItem('accessToken', json.accessToken);
       localStorage.setItem('user_name', json.name);
