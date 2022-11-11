@@ -5,23 +5,40 @@ import { useState } from 'react';
 import styles from './cardgallery.module.css';
 import ModalPay from '../ModalPay/ModalPay';
 
+
 const CardGallery = ({
-  coverPhotoGallery, galleryName, price, gallery, price_USD, numberPhotos,
+  coverPhotoGallery, galleryName, price, gallery, price_USD, numberPhotos, index = false, role
 }) => {
   const router = useRouter();
   const handleClick = () => {
     router.push(`/gallery/${galleryName}`);
   };
 
+
+
   return (
     <div className="m-1">
       <div className={styles.cardGallery} onClick={handleClick}>
         <div className='position-relative'>
-          <img style={{ height: 400, width: '100%', objectFit: 'contain' }} src={coverPhotoGallery} alt={galleryName}/*  height={1920} width={1200} layout="responsive" quality={100} priority  */ />
+          <img style={{ height: 400, width: '100%', objectFit: index ? 'cover' : 'contain' }} src={coverPhotoGallery} alt={galleryName}/*  height={1920} width={1200} layout="responsive" quality={100} priority  */ />
           <div className='text-white px-2 py-1 bg-dark bg-opacity-75 position-absolute bottom-0 end-0 d-flex'>
             <i className="bi bi-camera me-1" />
             <div className={styles.imageQuantity}>{numberPhotos}</div>
           </div>
+          {role === 'admin' &&
+            <>
+              <button
+                className='btn btn-primary position-absolute'
+                style={{ right: 8, width: 40, height: 40 }}>
+                <i class="bi bi-trash"></i>
+              </button>
+              <button
+                className='btn btn-primary position-absolute'
+                style={{ right: 55, width: 40, height: 40 }}>
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </>
+          }
         </div>
         <div className={`p-2 ${styles.cardBody}`}>
           {

@@ -80,7 +80,7 @@ const MyApp = ({ Component, pageProps }) => {
       });
   }, []);
 
-  if (location === process.env.NEXT_PUBLIC_STATE) return <Error />;
+  if (location === process.env.NEXT_PUBLIC_STATE) return <Error texto={'Lo sentimos este contenido esta restringido para su region'} />;
 
   return (
     <>

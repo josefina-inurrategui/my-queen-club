@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Footer from '../../components/Footer/Footer';
 import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
@@ -12,7 +12,7 @@ import clientAxios from '../../config/clientAxios';
 const Galleries = () => {
   const route = useRouter();
   console.log(route.query.name);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   useEffect(() => {
     clientAxios(`/galleries/queen/${route.query.name}`)
       .then(res => setData(res.data));
@@ -35,6 +35,10 @@ const Galleries = () => {
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
           {
+            data?.length===0?<h2 className='text-center text-white'>
+              <span style={{color:'#D44F80'}}>{Router.query.name}</span> NO TIENE GALERIAS DISPONIBLES
+              </h2>
+            :
             data?.map((info, index) => (
               <div key={index} className='col-6 col-md-4 col-lg-3'>
                 <CardGallery {...info} gallery />

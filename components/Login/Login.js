@@ -8,7 +8,7 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    const resp = await fetch('https://my-queen-club.herokuapp.com/login', {
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_URL_BASE}login`, {
       method: 'POST',
       body: JSON.stringify({ ...data }),
       headers: {

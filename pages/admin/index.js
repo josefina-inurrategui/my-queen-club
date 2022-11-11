@@ -23,7 +23,7 @@ const Admin = () => {
   return (
     <>
       {
-        role !== 'admin'
+        role ==='admin'
           ? <div>
 
             <Head>
@@ -44,7 +44,7 @@ const Admin = () => {
             </main>
 
           </div>
-          : <Error></Error>
+          : <Error texto={'Lo sentimos no estas autorizado a ingresar a esta seccion'} number={'401'}></Error>
       }
     </>
   );

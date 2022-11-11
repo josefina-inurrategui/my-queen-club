@@ -6,6 +6,11 @@ import Image from 'next/image';
 import CloudinaryUploadImage from '../CloudinaryUploadImage/CloudinaryUploadImage';
 import styles from '../../styles/Forms.module.css';
 import clientAxios from '../../config/clientAxios';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from "yup";
+
 
 const NewGallery = ({ queenSelect }) => {
   const [queen, setQueen] = useState([]);
@@ -13,25 +18,47 @@ const NewGallery = ({ queenSelect }) => {
   const [coverPhotoGallery, setCoverPhotoGallery] = useState('');
   const [three, setThree] = useState([]);
   const [censoriship, setCensoriship] = useState('');
+  const [loading,setLoading]=useState(false)
+
+  const schema = Yup.object({
+    idQueen: Yup.string().required("Tienes que seleccionar una Queen"),
+    galleryName: Yup.string().required("El nombre de la galeria es requerido"),
+    price: Yup.string()
+      .min(2, 'El precio debe tener como minimo 2 cifras')
+      .required("El precio es requerido"),
+    price_USD: Yup.string()
+      .min(2, 'El precio debe tener como minimo 2 cifras')
+      .required("El precio en dolares es requerido"),
+  }).required();
 
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
+
+    setLoading(true)
     const dataFinished = {
       ...data,
       coverPhotoGallery: coverPhotoGallery[0],
-      photoBlur: censoriship,
+      photoBlur: censoriship[0],
       photosShow: three,
       photos: gallery,
     };
     console.log('hola');
     console.log(dataFinished);
-    /*  clientAxios.post('/galleries', data)
-       .then(response => console.log(response.data)); */
+    clientAxios.post('galleries', dataFinished)
+      .then(response => {
+        Swal.fire('Galeria creada con exito')
+        setCoverPhotoGallery('')
+        setThree([])
+        setGallery([])
+        setCensoriship('')
+        setLoading(false)
+        location. reload()
+      })
+      .catch(err => console.log(err))
   };
-  /*   console.log(coverPhotoGallery) */
 
   const handleQueen = async () => {
     clientAxios.get('/queen')
@@ -58,7 +85,7 @@ const NewGallery = ({ queenSelect }) => {
     setThree(img);
   };
   const handleCensorshipImage = (img) => {
-
+    setCensoriship(img)
   };
   /*   console.log(three,'soy las tres fotos')
   console.log(coverPhotoGallery,'soy cover photo') */
@@ -71,20 +98,20 @@ const NewGallery = ({ queenSelect }) => {
     <form className="col-8" onSubmit={handleSubmit(onSubmit)}>
 
       <div className="mb-3 pt-5">
-        <h2 className='text-white'>CREAR GALERIA</h2>
+        <h2 style={{color:'#D44F80'}}>CREAR GALERIA</h2>
         <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Nombre de Queen</label>
         <select className={`form-select ${styles.placeholder}`} aria-label="Default select example" {...register('idQueen', { required: true })}>
-          {/* <option selected>Seleccione una Queen</option> */}
-          <option selected>facu</option>
-          {/* {
-            queen.length > 0 && queen.map(x => <option key={x._id} value={x._id}>{x.name}</option>)
-          } */}
+          <option selected>Seleccione una Queen</option>
+          {
+            queen.length > 0 && queen.map(x => <option key={x._id} value={x.name}>{x.name}</option>)
+          }
         </select>
+        {errors.idQueen && <span className={`text-danger`}>{errors.idQueen.message}</span>}
       </div>
       <div className="mb-3">
         <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Nombre de la Galería</label>
         <input type="text" className={`form-control ${styles.placeholder}`} id="exampleInputEmail1" aria-describedby="emailHelp" {...register('galleryName', { required: true })} />
-        {errors.exampleRequired && <span className={`${styles.title}`}>Este campo es requerido</span>}
+        {errors.galleryName && <span className={`text-danger`}>{errors.galleryName.message}</span>}
       </div>
       <div className="mb-3">
         <div>
@@ -109,18 +136,13 @@ const NewGallery = ({ queenSelect }) => {
         <div className="mb-3 col-md-5 col-sm-12">
           <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Precio de la Galeria en ARS</label>
           <input type="number" className={`form-control ${styles.placeholder}`} id="exampleInputEmail1" aria-describedby="emailHelp" {...register('price', { required: true })} />
-          {errors.exampleRequired && <span className={`${styles.title}`}>Este campo es requerido</span>}
+          {errors.price && <span className={`$text-danger`}>{errors.price.message}</span>}
         </div>
         <div className="mb-3 col-md-5 col-sm-12">
           <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Precio de la Galeria en USD</label>
           <input type="number" className={`form-control ${styles.placeholder}`} id="exampleInputEmail1" aria-describedby="emailHelp" {...register('price_USD', { required: true })} />
-          {errors.exampleRequired && <span className={`${styles.title}`}>Este campo es requerido</span>}
+          {errors.price_USD && <span className={`$text-danger`}>{errors.price_USD.message}</span>}
         </div>
-      </div>
-      <div className="mb-3">
-        <label htmlFor="exampleInputEmail1" className={`form-label ${styles.title}`}>Precio en dolares de la Galeria</label>
-        <input type="number" className={`form-control ${styles.placeholder}`} id="exampleInputEmail1" aria-describedby="emailHelp" {...register('price_USD', { required: true })} />
-        {errors.exampleRequired && <span className={`${styles.title}`}>Este campo es requerido</span>}
       </div>
       <div className="mb-3">
         <div>
@@ -144,12 +166,46 @@ const NewGallery = ({ queenSelect }) => {
         </div>
         <div className="mb-3">
           <CloudinaryUploadImage onSave={handleCensorshipImage} label="Cargar Foto Censurada" />
+          <div className='d-flex flex-wrap '>
+
+            <div className='position-relative'>
+              {
+                censoriship && censoriship.map(res => {
+                  return (
+                    <img className={styles.image} src={res} alt={'imagen blureada'} />
+                  )
+                })
+              }
+              {/* <div className={`position-absolute ${styles.btnDelete}`} onClick={() => handleDeleteThree(or)}> x </div> */}
+            </div>
+
+
+
+          </div>
         </div>
         <div className="mb-3">
           <CloudinaryUploadImage onSave={handleGalleryImages} label="Cargar fotos de Galeria" />
+
+          <div className='d-flex flex-wrap '>
+            {gallery.length > 0 && gallery?.map((or) => {
+              return (
+                <>
+                  <div className='position-relative'>
+                    <img className={styles.image} key={or} src={or} alt={or} />
+                    {/* <div className={`position-absolute ${styles.btnDelete}`} onClick={() => handleDeleteThree(or)}> x </div> */}
+                  </div>
+                </>
+              );
+            })
+            }
+          </div>
         </div>
       </div>
-      <button type="submit" className="btn btn-primary"> Crear galería </button>
+      <button
+        type="submit"
+        disabled={three.length > 0 && coverPhotoGallery && censoriship && gallery.length > 0 ? false : true}
+        className="btn btn-primary"
+      > {loading?'Creando galeria...':'Crear galería'} </button>
     </form>
   );
 };

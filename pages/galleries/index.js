@@ -3,12 +3,17 @@ import axios from 'axios';
 import Footer from '../../components/Footer/Footer';
 import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
 import CardGallery from '../../components/CardGallery/CardGallery';
-
+import jwtDecode from 'jwt-decode';
 import styles from '../../styles/Galleries.module.css';
 import data from '../../data/galleries.example.json';
 
 const Galleries = ({ galerias }) => {
-  console.log(galerias);
+    
+  const token=localStorage.getItem('accessToken')
+  const role=jwtDecode(token).role
+   
+
+
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -27,7 +32,7 @@ const Galleries = ({ galerias }) => {
           {
             galerias.map((info, index) => (
               <div key={index} className='col-6 col-md-4 col-lg-3l'>
-                <CardGallery {...info} gallery />
+                <CardGallery role={role}  {...info} gallery />
               </div>
             ))
           }

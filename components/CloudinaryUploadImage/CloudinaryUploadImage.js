@@ -72,7 +72,7 @@ const CloudinaryUploadImage = ({ onSave, label }) => {
     <>
       <Script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript" />
 
-      <button onClick={handleClick} className={`btn ${styles.button}`}>{label}</button>
+      <button type='button' onClick={handleClick} className={`btn ${styles.button}`}>{label}</button>
     </>
   );
 };
