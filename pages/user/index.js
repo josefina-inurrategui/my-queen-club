@@ -32,7 +32,6 @@ const User = () => {
     const userInfo = jwt_decode(jwt)
     userData.userName = userInfo.userName
     infoUser()
-
   }
 
   if(localStorage.getItem('accessToken') === null){
@@ -79,9 +78,9 @@ const User = () => {
                     </div>}
                   {userData.role === "client" &&
                     <div>
-                      <div className={`nav-link ${styles.column}`}>
+                      {/* <div className={`nav-link ${styles.column}`}>
                         <span onClick={() => setUser(3)}>Método de pago</span>
-                      </div>
+                      </div> */}
                       <div className={`nav-link ${styles.column}`}>
                         <span onClick={() => setUser(4)}>Suscripciones</span>
                       </div>
@@ -94,7 +93,7 @@ const User = () => {
         <section className='col-12 col-md-8 col-lg-7'>
           {user === 1 && <EditAccount name={userData.name} lastName={userData.lastName} userName={userData.userName} email={userData.email} />}
           {user === 2 && <TableBuy role={userData.role} data={compras} key={userData.userName} />}
-          {user === 3 && <p className='text-white'>Proximamente</p>}
+          {/* {user === 3 && <p className='text-white'>Proximamente</p>} */}
           {user === 4 && <TableSus data={compras} key={userData.userName} />}
         </section>
       </section>

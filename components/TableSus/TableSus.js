@@ -7,7 +7,7 @@ import stylesHome from '../../styles/Home.module.css';
 const TableSus = ({ data }) => {
     const router = useRouter();
     const handleClick = (galleryName) => {
-        router.push(`/gallery/${galleryName}`);
+        router.push(`/galleries/${galleryName}`);
     };
     const daysRest = (dateBuy) => {
         const today = new Date().getTime()
@@ -38,7 +38,7 @@ const TableSus = ({ data }) => {
                                 <td>{i.queen}</td>
                                 <td>{i.galleryName}</td>
                                 <td>{daysRest(new Date(i.createdAt))}</td>
-                                <td><button onClick={()=> handleClick( i.galleryName)} className={`btn w-50 ms-auto ${styles.button}`}>Ir</button></td>
+                                <td><button onClick={()=> handleClick(i._id)} className={`btn w-50 ms-auto ${styles.button}`}>Ir</button></td>
                             </tr>)}
                     </tbody>
                 </Table>

@@ -37,18 +37,20 @@ const ModalPay = ({ item , queen , price , galleryName} ) => {
         <p className={`m-0 text-center ${styles.title}`}><span>Queen:</span> {queen}</p>
         <p className={`m-0 text-center ${styles.title}`}><span>Precio:</span> $ {price}</p>
         <div className="row m-0">
-            <button className='col-lg-6 col-md-6 col-12 btn '  onClick={handleClickMercadoPago}>
-              <p className='text-center m-2'><i className="bi bi-credit-card fs-1"></i></p>
-              <p className='text-center'>Mercado Pago</p>
-            </button>
-          {linkMP && <a  href={linkMP}>
-            <button> IR a pagar </button>
-          </a>} 
+          <button className='col-lg-6 col-md-6 col-12 btn '  onClick={handleClickMercadoPago}>
+            <p className='text-center m-2'><i className="bi bi-credit-card fs-1"></i></p>
+            <p className='text-center'>Mercado Pago</p>
+          </button>
           <button className='col-lg-6 col-md-6 col-12 btn'>
             <p className='text-center m-2'><i className="bi bi-paypal fs-1"></i></p>
             <p className='text-center'>Paypal</p>
           </button>
         </div>
+        <div>
+        {linkMP && <a  href={linkMP}>
+            <button> IR a pagar </button>
+          </a>}
+        </div> 
       </div>
     </div>
   );
