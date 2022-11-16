@@ -8,6 +8,7 @@ import data from '../../data/gallery.example.json';
 import ModalPay from '../../components/ModalPay/ModalPay';
 import GeneralModal from "../../components/GeneralModal/GeneralModal"
 import BtnPaypal from '../../components/Paypal/btnPaypal';
+import AlertSecurity from '../../components/Alert/AlertSecurity';
 
 
 const Gallery = ({ gallery: { galleryName, queenName, images, price, imageQuantity, },}) => {
@@ -33,6 +34,7 @@ const Gallery = ({ gallery: { galleryName, queenName, images, price, imageQuanti
 
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
+          <AlertSecurity/>
           {
             images.map((src, i) => (
               <div key={i} className="mb-3 position-relative d-flex justify-content-center">
