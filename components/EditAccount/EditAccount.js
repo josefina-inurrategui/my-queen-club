@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './editAccount.module.css';
 
 const EditAccount = ({name , lastName, userName, email  }) => {
+
+  
   return (
      <div className="container w-100">
       <forms className="row m-3">

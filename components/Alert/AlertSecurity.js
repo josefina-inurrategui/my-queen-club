@@ -1,8 +1,6 @@
-import Modal from 'react-bootstrap/Modal';
-import { useRouter } from 'next/router';
 import classesText from '../../styles/Galleries.module.css';
-import styles from './AlertSecurity.module.css';
-import { useUser } from '../../context/userContext';
+
+
 
 
 function AlertSecurity() {

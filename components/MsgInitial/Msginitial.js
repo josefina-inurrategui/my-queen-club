@@ -26,28 +26,23 @@ function Msginitial () {
     
 
     return (
-        <Modal show={acept}>
-            
-            <Modal.Dialog  className={`${classesText.bgHome}`} >
-                <Modal.Header className={`${classesText.bgHome}`} >
-                    <Modal.Title className={`p-1 ${classesText.title}`}>¡BIENVENIDX A MY QUEENS CLUB!</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body className={`${classesText.bgHome}`}>
-                    <p className={`p-1 ${classesText.title}`}>Nuestro sitio web contiene contenido para adultos y debes ser mayor de edad, respetando
-                        todas las normas que presentamos en nuestros <span onClick={handleTerms} className={styles.text}>términos y condiciones</span></p>
-                    <p className={`p-1 ${classesText.title}`}>También, nuestro sitio web cuenta con sistemas de seguridad que debes aceptar y respetar
-                        para evitar todo tipo de sanciones como se indican en nuestra <span onClick={handlePolitic} className={styles.text}>política de privacidad.</span></p>
-                    <p className={`p-1 ${classesText.title}`}>Al "Aceptar" e ingresar en nuestro sitio web, estás aceptando todo lo anterior y certificando
-                        que sos mayor de edad.</p>
-                    <p className={`p-1 ${classesText.title}`} >¡Gracias por elegir ser parte del Club!</p>
-                </Modal.Body>
-
-                <Modal.Footer className={`${classesText.bgHome}`}>
-                    <Button className='p-1' variant="secondary" onClick={handleExit} >Rechazar</Button>
-                    <button onClick={handleAcept} className={`btn ${classesText.button}`} ><span>Soy mayor de 18 años y acepto todas las condiciones</span></button>
-                </Modal.Footer>
-            </Modal.Dialog>
+        <Modal size="lg" show={acept} >           
+            <Modal.Header className={`${classesText.bgHome}`} >
+                <Modal.Title className={` ${classesText.title}`}>¡BIENVENIDX A MY QUEENS CLUB!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className={`${classesText.bgHome}`}>
+                <p className={` ${classesText.title}`}>Nuestro sitio web contiene contenido para adultos y debes ser mayor de edad, respetando
+                    todas las normas que presentamos en nuestros <button  className={`${styles.button} ${classesText.bgHome}`} onClick={handleTerms}><span className={styles.text}>términos y condiciones</span></button></p>
+                <p className={` ${classesText.title}`}>También, nuestro sitio web cuenta con sistemas de seguridad que debes aceptar y respetar
+                    para evitar todo tipo de sanciones como se indican en nuestra <button  className={`${styles.button} ${classesText.bgHome}`} onClick={handlePolitic}><span className={styles.text}>política de privacidad.</span></button></p>
+                <p className={` ${classesText.title}`}>Al "Aceptar" e ingresar en nuestro sitio web, estás aceptando todo lo anterior y certificando
+                    que sos mayor de edad.</p>
+                <p className={` ${classesText.title}`} >¡Gracias por elegir ser parte del Club!</p>
+            </Modal.Body>
+            <Modal.Footer className={`${classesText.bgHome}`}>
+                <Button  variant="secondary" onClick={handleExit} >Rechazar</Button>
+                <button onClick={handleAcept} className={`btn ${classesText.button}`} ><span>Soy mayor de 18 años y acepto todas las condiciones</span></button>
+            </Modal.Footer>
     </Modal>
     );
 }

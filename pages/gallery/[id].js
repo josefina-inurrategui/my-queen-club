@@ -9,10 +9,10 @@ import ModalPay from '../../components/ModalPay/ModalPay';
 import GeneralModal from "../../components/GeneralModal/GeneralModal"
 import BtnPaypal from '../../components/Paypal/btnPaypal';
 import AlertSecurity from '../../components/Alert/AlertSecurity';
-
+import { useEffect, useState } from 'react';
 
 const Gallery = ({ gallery: { galleryName, queenName, images, price, imageQuantity, },}) => {
-
+  const [gallery, setGallery] = useState('');
 
   return (
     <div className={styles.bgHome}>
@@ -29,12 +29,11 @@ const Gallery = ({ gallery: { galleryName, queenName, images, price, imageQuanti
           <h6 className={`text-uppercase fw-bolder text-center ${styles.title}`}>{galleryName}</h6>
           <h6 className={`fw-bolder text-center mb-4 ${styles.subTitle}`}>Galería de fotos de {queenName}</h6>
         </div>
-        <BtnPaypal price={price}/>
       </header>
 
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
-          <AlertSecurity/>
+          {gallery?.photos? <AlertSecurity/>:""}
           {
             images.map((src, i) => (
               <div key={i} className="mb-3 position-relative d-flex justify-content-center">
