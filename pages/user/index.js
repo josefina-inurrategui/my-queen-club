@@ -13,6 +13,12 @@ const User = () => {
   const [user, setUser] = useState(1);
   const router = useRouter();
   const [compras, setCompras] = useState([])
+  const [name , setName] = useState("");
+  const [lastName , setLastName] = useState("");
+  const [role , setRole] = useState("client");
+  const [idUser , setIdUser] = useState("");
+  const [email , setEmail] = useState("");
+
 
   const logout = () => {
     localStorage.clear();
@@ -22,37 +28,39 @@ const User = () => {
 
   const infoUser = async () => {
     const response = await clientAxios.get(`/user/${userData.userName}`);
-    userData.role = response.data.role
-    userData.email = response.data.email
-    userData.name = response.data.name
+    setRole(response.data.role);
+    setName(response.data.name);
+    setLastName(response.data.lastName);
+    setEmail(response.data.email);
+    setIdUser(response.data._id);
+  }
+  
+  const getCompras = async () => {
+    const response = await clientAxios.get(`/purchase/${idUser}`);
+    setCompras(response.data)
+    console.log(response.data)
   }
 
   if (localStorage.getItem('accessToken') != null) {
-    const jwt = localStorage.getItem('accessToken')
-    const userInfo = jwt_decode(jwt)
-    userData.userName = userInfo.userName
     infoUser()
   }
-
+  console.log()
   if(localStorage.getItem('accessToken') === null){
     router.push('/')
   }
 
-  const getCompras = async () => {
-    const response = await clientAxios.get(`/purchase/${userData.userName}`);
-    setCompras(response.data)
-  }
+  // probar useEffect cmabio de usuario 
 
   useEffect(() => {
     getCompras()
-  }, [userData])
+  }, [idUser])
 
 
   return (
     <div className={styles.controlUser}>
       <div className="text-center py-5">
         <h5 className={styles.title}>Editar cuenta</h5>
-        <span className={` text-normal ${styles.text} `}>Bienvenido {userData.name}. En esta sección verás toda la información detallada de tú cuenta.</span>
+        <span className={` text-normal ${styles.text} `}>Bienvenido {name}. En esta sección verás toda la información detallada de tú cuenta.</span>
       </div>
       <section className='row gx-0'>
         <section className="d-flex col-12 col-md-4 col-lg-4">
@@ -69,14 +77,14 @@ const User = () => {
                   <div className={`nav-link ${styles.column}`}>
                     <span onClick={() => setUser(1)}>Editar cuenta</span>
                   </div>
-                  {userData.role === "client" ?
+                  {role === "client" ?
                     <div className={`nav-link ${styles.column}`}>
                       <span onClick={() => setUser(2)}>Mis pedidos</span>
                     </div> :
                     <div className={`nav-link ${styles.column}`}>
                       <span onClick={() => setUser(2)}>Mis Ventas</span>
                     </div>}
-                  {userData.role === "client" &&
+                  {role === "client" &&
                     <div>
                       {/* <div className={`nav-link ${styles.column}`}>
                         <span onClick={() => setUser(3)}>Método de pago</span>
@@ -91,8 +99,8 @@ const User = () => {
           </div>
         </section>
         <section className='col-12 col-md-8 col-lg-7'>
-          {user === 1 && <EditAccount name={userData.name} lastName={userData.lastName} userName={userData.userName} email={userData.email} />}
-          {user === 2 && <TableBuy role={userData.role} data={compras} key={userData.userName} />}
+          {user === 1 && <EditAccount name={name} lastName={lastName} userName={userData.userName} email={email} />}
+          {user === 2 && <TableBuy role={role} data={compras} key={userData.userName} />}
           {/* {user === 3 && <p className='text-white'>Proximamente</p>} */}
           {user === 4 && <TableSus data={compras} key={userData.userName} />}
         </section>
