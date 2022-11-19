@@ -6,18 +6,24 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import Navbar from '../components/Navbar/Navbar';
-import { UserProvider } from '../context/userContext';
+import { UserProvider, useUser } from '../context/userContext';
 import { getState } from '../ipState/ipState';
 import Loader from '../components/Loader/LoaderInit';
 import Error from '../components/Error';
 import Msginitial from '../components/MsgInitial/msginitial';
 import AlertSecurity from '../components/Alert/AlertSecurity';
+import jwtDecode from 'jwt-decode';
 
 
 const MyApp = ({ Component, pageProps }) => {
   const [isScreenShoot, setIsScreenShoot] = useState(false);
   const [location, setLocation] = useState(null);
   const [status, setStatus] = useState(true);
+  const [role, setRole] = useState(undefined)
+  /* const token = localStorage.getItem('accessToken')
+  const role = jwtDecode(token).role
+
+ console.log(role) */
 
   const handleKeyDown = (e) => {
     if (e.code === 'ShiftLeft') {
@@ -64,7 +70,7 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }
 
-  
+
   useEffect(() => {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'PrintScreen') { // Deshabilita captura de pantalla --> Tecla (imp pnt)
@@ -76,6 +82,10 @@ const MyApp = ({ Component, pageProps }) => {
 
     getState()
       .then(res => {
+        if (localStorage.length > 0) {
+          const data = jwtDecode(localStorage.getItem('accessToken'))
+          setRole(data.role)
+        }
         setLocation(res.state);
         setStatus(false);
       })
@@ -84,14 +94,18 @@ const MyApp = ({ Component, pageProps }) => {
       });
   }, []);
 
-  if (location === process.env.NEXT_PUBLIC_STATE) return <Error texto={'Lo sentimos este contenido esta restringido para su region'} />;
+  if (location === 'Jujuy' /* process.env.NEXT_PUBLIC_STATE */)  {
+    if (role === 'client' || role === undefined) {
+      return <Error texto={'Lo sentimos este contenido esta restringido para su region'} />;
+    }
+  }/* */
 
   return (
     <>
-    { status ? <Loader/>
-      :
-      <UserProvider>
-        <Msginitial/>
+      {status ? <Loader />
+        :
+        <UserProvider>
+          {/* <Msginitial/> */}
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </Head>
@@ -101,8 +115,8 @@ const MyApp = ({ Component, pageProps }) => {
           />
           <Navbar />
           <Component {...pageProps} />
-          <AlertSecurity/>
-      </UserProvider>}
+          {/*  <AlertSecurity/> */}
+        </UserProvider>}
     </>
   );
 };

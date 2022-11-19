@@ -4,21 +4,50 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './cardgallery.module.css';
 import ModalPay from '../ModalPay/ModalPay';
+import clientAxios from '../../config/clientAxios'
+import Swal from 'sweetalert2';
+import ModalEditGallery from '../ModalEditGallery/ModalEditGallery';
 
+const CardGallery = ({ gallery, index = false, role, galeria }) => {
 
-const CardGallery = ({
-  coverPhotoGallery, galleryName, price, gallery, price_USD, numberPhotos, index = false, role
-}) => {
+  const { _id, coverPhotoGallery, galleryName, price, price_USD, numberPhotos } = galeria
+  
+  const [data, setData] = useState()
+
   const router = useRouter();
+  
   const handleClick = () => {
     router.push(`/gallery/${galleryName}`);
   };
 
-
+  const deleteGallery = () => {
+    Swal.fire({
+      icon: 'warning',
+      html: `<h2>Estas seguro de borrar la galeria ${galleryName}??</h2>`,
+      showCancelButton: true,
+      confirmButtonText: 'Borrar',
+    }).then(res => {
+      if (res.isConfirmed) {
+        clientAxios.delete(`galleries/delete/${_id}`)
+          .then(res => {
+            Swal.fire({
+              icon: 'success',
+              html: `<h2> ${galleryName} borrada con exito</h2>`,
+            })
+            window.location.reload()
+          })
+      }
+    })
+  }
+  const handleGaleria = () => {
+    router.push(`/${galleryName}/edit`)
+  }
 
   return (
     <div className="m-1">
-      <div className={styles.cardGallery} onClick={handleClick}>
+
+      <div className={styles.cardGallery} onClick={() => { index ? handleClick() : console.log('...') }} >
+
         <div className='position-relative'>
           <img style={{ height: 400, width: '100%', objectFit: index ? 'cover' : 'contain' }} src={coverPhotoGallery} alt={galleryName}/*  height={1920} width={1200} layout="responsive" quality={100} priority  */ />
           <div className='text-white px-2 py-1 bg-dark bg-opacity-75 position-absolute bottom-0 end-0 d-flex'>
@@ -28,11 +57,15 @@ const CardGallery = ({
           {role === 'admin' &&
             <>
               <button
+                onClick={() => deleteGallery()}
                 className='btn btn-primary position-absolute'
                 style={{ right: 8, width: 40, height: 40 }}>
                 <i class="bi bi-trash"></i>
               </button>
+
               <button
+                onClick={handleGaleria}
+                 /*data-bs-toggle="modal" data-bs-target={`#editModal${_id}`} */
                 className='btn btn-primary position-absolute'
                 style={{ right: 55, width: 40, height: 40 }}>
                 <i class="bi bi-pencil-square"></i>
@@ -57,10 +90,8 @@ const CardGallery = ({
                   </div>
                   <div className='d-flex justify-content-between align-items-center ps-lg-4'>
                     <span className={`text-secondary fw-light ${styles.titleName}`}>{galleryName}</span>
-                    <button className={`btn ${styles.button}`}>Suscribete</button>
-
+                    <button onClick={handleClick} className={`btn ${styles.button}`}>Suscribete</button>
                   </div>
-
                 </>
               )
           }

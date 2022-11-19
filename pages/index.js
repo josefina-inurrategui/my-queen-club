@@ -11,8 +11,19 @@ import InfoSubs from '../components/InfoSubs/InfoSubs';
 import Checkout from '../components/MercadoPagoPayment/Checkout';
 import axios from 'axios';
 import clientAxios from '../config/clientAxios';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-const Home = ({galleries,queens}) => {
+const Home = ({ galleries, queens, datas }) => {
+  const [banners, setBanners] = useState([])
+  const random = () => {
+    const len = queens.length
+    return Math.floor(Math.random() * len)
+  }
+  useEffect(() => {
+    setBanners([...banners, queens[random()]])
+  }, [])
+
 
   return (
     <div className={styles.bgHome}>
@@ -23,8 +34,8 @@ const Home = ({galleries,queens}) => {
       </Head>
 
       <header>
-        <ModalSingIn idModal='singIn'/>
-        <Carousel carouselInfo={carouselInfo} carouselInfoMobile={carouselInfoMobile} />
+        <ModalSingIn idModal='singIn' />
+        <Carousel carouselInfo={banners} carouselInfoMobile={carouselInfoMobile} />
       </header>
 
       <main className='mb-5'>
@@ -42,12 +53,12 @@ const Home = ({galleries,queens}) => {
 export async function getStaticProps() {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
   const data = await res.json();
-  const dataGalleries = await clientAxios('/galleries')
-  const galerias =  dataGalleries.data;
-  const dat= await clientAxios("queen")
-  const queens=dat.data;
+  const dataGalleries = await clientAxios('galleries')
+  const galerias = dataGalleries.data;
+  const dat = await clientAxios("queen")
+  const queens = dat.data;
   return {
-    props: { data,galleries: galerias,queens:queens },
+    props: { data, galleries: galerias, queens: queens },
   };
 }
 

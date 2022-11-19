@@ -15,7 +15,7 @@ const Queens = () => {
   }, []);
 
   console.log(data);
-  if (data.length === 0) return <LoaderInit/>;
+  if (data.length === 0) return <LoaderInit />;
   return (
     <div className={styles.bgHome}>
       <Head>
@@ -33,7 +33,7 @@ const Queens = () => {
         <section className='row gx-0'>
           {
             data.map((info, index) => (
-              <div key={index}  className='col-12 col-md-4 col-lg-4'>
+              <div key={index} className='col-12 col-md-4 col-lg-4'>
                 <CardHome {...info} />
               </div>
             ))

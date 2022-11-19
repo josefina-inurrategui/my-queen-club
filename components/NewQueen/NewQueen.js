@@ -36,12 +36,18 @@ const NewQueen = ({ setQueen }) => {
   });
 
   const [image, setImage] = useState()
+  const [imageBanner, setImageBanner] = useState()
  
+  const resetIamge=()=>{
+    setImage([])
+    setImageBanner([])
+  }
   const onSubmit = async (data) => {
 
     data = {
       ...data,
       coverImage: image[0],
+      photoCarrusel:imageBanner[0],
     }
 
     console.log(data)
@@ -51,6 +57,7 @@ const NewQueen = ({ setQueen }) => {
         if (response.status === 200) {
           setQueen(true);
           reset();
+          resetIamge();
           Swal.fire({
             icon: 'success',
             iconColor: '#D44F80',
@@ -78,6 +85,9 @@ const NewQueen = ({ setQueen }) => {
 
   const handleImage = (data) => {
     setImage(data)
+  }
+  const handleImageBanner = (data) => {
+    setImageBanner(data)
   }
 
   return (
@@ -120,6 +130,20 @@ const NewQueen = ({ setQueen }) => {
       <div className='position-relative'>
         {
           image?.length > 0 && <img className={styles.image} src={image}></img>
+        }
+
+      </div>
+      <div className="mb-3">
+        {
+          imageBanner?.length > 0 ? <button className='btn btn-primary' disabled>Cargar Banner</button>
+            :
+            <CloudinaryUploadImage onSave={handleImageBanner} label="Cargar Banner" />
+        }
+
+      </div>
+      <div className='position-relative'>
+        {
+          imageBanner?.length > 0 && <img className={styles.image} src={imageBanner}></img>
         }
 
       </div>

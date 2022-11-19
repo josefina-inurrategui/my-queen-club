@@ -10,12 +10,13 @@ const Tab = ({ galleries, queens }) => {
   const galleries1 = [];
   const galleries2 = []
 
-  galleries.forEach((res, idx) => {
+  galleries?.forEach((res, idx) => {
     if (idx < long)
       galleries1.push(res)
     else
       galleries2.push(res)
   })
+
 
   return (
     <>

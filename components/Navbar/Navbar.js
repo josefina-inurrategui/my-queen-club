@@ -13,6 +13,7 @@ const Navbar = () => {
     localStorage.clear();
     setFlagReload(!flagReload);
     router.push('/');
+    window.location.reload()
   };
 
   return (

@@ -33,7 +33,7 @@ const CardCarousel = ({ carouselInfo, gallery, queen }) => {
       {
         carouselInfo.map((info, index) => (
           <SwiperSlide key={index}>
-            { gallery && <CardGallery index {...info} /> }
+            { gallery && <CardGallery index galeria={info} /> }
             { queen && <CardHome {...info} /> }
           </SwiperSlide>
         ))

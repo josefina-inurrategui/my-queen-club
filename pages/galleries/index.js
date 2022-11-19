@@ -6,13 +6,17 @@ import CardGallery from '../../components/CardGallery/CardGallery';
 import jwtDecode from 'jwt-decode';
 import styles from '../../styles/Galleries.module.css';
 import data from '../../data/galleries.example.json';
+import LoaderInit from '../../components/Loader/LoaderInit'
+import clientAxios from '../../config/clientAxios';
 
 const Galleries = ({ galerias }) => {
-    
-  const token=localStorage.getItem('accessToken')
-  const role=jwtDecode(token).role
-   
 
+  console.log(galerias,'SOY GALERIAS ')
+  const token = localStorage.getItem('accessToken')
+  const role = jwtDecode(token).role
+
+  if (galerias === undefined) return<LoaderInit />
+  
 
   return (
     <div className={styles.bgHome}>
@@ -32,7 +36,7 @@ const Galleries = ({ galerias }) => {
           {
             galerias.map((info, index) => (
               <div key={index} className='col-6 col-md-4 col-lg-3l'>
-                <CardGallery role={role}  {...info} gallery />
+                <CardGallery role={role}  galeria={info} gallery />
               </div>
             ))
           }
@@ -45,7 +49,7 @@ const Galleries = ({ galerias }) => {
 };
 
 export async function getServerSideProps() {
-  const res = await axios('https://backqueens-production.up.railway.app/galleries');
+  const res = await clientAxios('galleries');
   const galerias = await res.data;
   return {
     props: { galerias }, // will be passed to the page component as props

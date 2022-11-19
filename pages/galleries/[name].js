@@ -8,6 +8,7 @@ import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
 import CardGallery from '../../components/CardGallery/CardGallery';
 import styles from '../../styles/Galleries.module.css';
 import clientAxios from '../../config/clientAxios';
+import ModalEditGallery from '../../components/ModalEditGallery/ModalEditGallery';
 
 const Galleries = () => {
   const route = useRouter();
@@ -35,15 +36,20 @@ const Galleries = () => {
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
           {
-            data?.length===0?<h2 className='text-center text-white'>
-              <span style={{color:'#D44F80'}}>{Router.query.name}</span> NO TIENE GALERIAS DISPONIBLES
+            data?.length === 0 ?
+              <h2 className='text-center text-white'>
+                <span style={{ color: '#D44F80',textTransform:'capitalize' }}>
+                  {Router.query.name}</span> NO TIENE GALERIAS DISPONIBLES
               </h2>
-            :
-            data?.map((info, index) => (
-              <div key={index} className='col-6 col-md-4 col-lg-3'>
-                <CardGallery {...info} gallery />
-              </div>
-            ))
+              :
+              data?.map((info, index) => (
+                <>
+                  <div key={index} className='col-6 col-md-4 col-lg-3'>
+                    <CardGallery galeria={info} gallery />
+                  </div>
+
+                </>
+              ))
           }
         </section>
       </main>

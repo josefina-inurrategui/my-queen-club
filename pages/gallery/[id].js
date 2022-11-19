@@ -71,9 +71,7 @@ const Gallery = (/* { gallery, purchase } */) => {
                   <img src={src} alt={src} style={{ width: ' 90%', objectFit: 'contain' }}/* width={1000} height={1620} */ />
                 </div>
               ))
-
               :
-
               <>
                 {
                   gallery?.photosShow?.map((src, i) => (
@@ -124,25 +122,6 @@ const Gallery = (/* { gallery, purchase } */) => {
     </div>
   );
 };
-
-/* export const getStaticPaths = async () => {
-  return {
-    paths: [
-      { params: { id: data.id } },
-    ],
-    fallback: false,
-
-  };
-
-};
-
-export const getStaticProps = async () => {
-
-  return {
-    props: { gallery: data, purchase: compras },
-  };
-}; */
-
 Gallery.propTypes = {
   gallery: PropTypes.object,
 };
