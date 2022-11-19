@@ -5,3 +5,6 @@
 .text:hover{
     color: var(--primary-color);
 }
+.button{
+    border: none;
+}

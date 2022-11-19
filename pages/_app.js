@@ -115,8 +115,7 @@ const MyApp = ({ Component, pageProps }) => {
           />
           <Navbar />
           <Component {...pageProps} />
-          {/*  <AlertSecurity/> */}
-        </UserProvider>}
+      </UserProvider>}
     </>
   );
 };

@@ -57,13 +57,11 @@ const Gallery = (/* { gallery, purchase } */) => {
           <h6 className={`text-uppercase fw-bolder text-center ${styles.title}`}>{gallery?.galleryName}</h6>
           <h6 className={`fw-bolder text-center mb-4 ${styles.subTitle}`}>Galería de fotos de {gallery?.idQueen}</h6>
         </div>
-
-
-
       </header>
 
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
+          {gallery?.photos? <AlertSecurity/>:""}
           {
             gallery?.photos
               ? gallery?.photos?.map((src, i) => (
