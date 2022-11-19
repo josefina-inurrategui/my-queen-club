@@ -39,13 +39,11 @@ const User = ({ purchase }) => {
   const getCompras = async () => {
     const response = await clientAxios.get(`/purchase/${idUser}`);
     setCompras(response.data)
-    console.log(response.data)
   }
 
   if (localStorage.getItem('accessToken') != null) {
     infoUser()
   }
-  console.log()
   if(localStorage.getItem('accessToken') === null){
     router.push('/')
   }

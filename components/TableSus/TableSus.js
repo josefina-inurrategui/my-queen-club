@@ -9,11 +9,10 @@ const TableSus = ({ data }) => {
     const handleClick = (galleryName) => {
         router.push(`/galleries/${galleryName}`);
     };
+
     const daysRest = (dateBuy) => {
         const today = new Date().getTime()
         const dif = parseInt(31 - (today - dateBuy.getTime()) / (1000 * 60 * 60 * 24))
-        console.log(dateBuy.toLocaleDateString())
-        console.log(new Date().toLocaleDateString())
         return dif
     }
     return (
@@ -38,7 +37,7 @@ const TableSus = ({ data }) => {
                                 <td>{i.queen}</td>
                                 <td>{i.galleryName}</td>
                                 <td>{daysRest(new Date(i.createdAt))}</td>
-                                <td><button onClick={()=> handleClick(i._id)} className={`btn w-50 ms-auto ${styles.button}`}>Ir</button></td>
+                                <td><button onClick={()=> handleClick(i.galleryName)} className={`btn w-50 ms-auto ${styles.button}`}>Ir</button></td>
                             </tr>)}
                     </tbody>
                 </Table>

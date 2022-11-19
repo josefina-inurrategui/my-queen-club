@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { GetLocalStorage } from '../../helper/GetLocalStorage';
 import BtnPaypal from '../../components/Paypal/btnPaypal';
-
-// PRUEBA 
 import clientAxios from '../../config/clientAxios';
 
 const ModalPay = ({ item , queen , price , galleryName} ) => {
@@ -15,7 +13,7 @@ const ModalPay = ({ item , queen , price , galleryName} ) => {
     const [buttonPayPal, setButtonPayPal] = useState(false);
     const token = GetLocalStorage('accessToken');
 
-    // PRUEBA 
+
     const handleClickMercadoPago = async () => {
       let pedido = {price, queen , galleryName}
       const response = await clientAxios.post('/mercadopago/createPayment', pedido);
@@ -23,22 +21,6 @@ const ModalPay = ({ item , queen , price , galleryName} ) => {
       setlinkMP(response.data)
     };
 
-
-  // const handleClickMercadoPago = () => {
-  //   let pedido = {price, userData , queen , galleryName}
-  //   fetch("http://localhost:8000/mercadopago/createPayment ", {
-  //   method: 'POST' ,
-  //   headers: {
-  //       'Content-type': 'application/json; charset=UTF-8',
-  //       accessToken: token,
-  //   },
-  //   body: JSON.stringify(pedido)})
-  //   .then(res => res.json())
-  //   .then(res => {
-  //     setButtonPayPal(false)
-  //     setlinkMP(res)
-  //   }) 
-  // };
   const handlePayPal = () =>{
     setlinkMP("")
     setButtonPayPal(true)
