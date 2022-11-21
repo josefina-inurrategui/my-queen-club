@@ -105,7 +105,7 @@ const MyApp = ({ Component, pageProps }) => {
       {status ? <Loader />
         :
         <UserProvider>
-          {/* <Msginitial/> */}
+          <Msginitial/>
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </Head>

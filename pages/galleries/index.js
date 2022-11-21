@@ -11,9 +11,12 @@ import clientAxios from '../../config/clientAxios';
 
 const Galleries = ({ galerias }) => {
 
+  console.log(jwtDecode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY0NDllYWYxOTRmMzM3ZDlmMWRmMWUiLCJlbWFpbCI6ImZhY3VBZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJ1c2VyTmFtZSI6ImZhY3UyMzIzIiwiaWF0IjoxNjY4Nzg3NzM0LCJleHAiOjE2Njg3OTQ5MzR9.IgMRovYmzRv7RHjOz5_vhLBg2lpi0OICsAdbLiQOtY8"))
   console.log(galerias,'SOY GALERIAS ')
   const token = localStorage.getItem('accessToken')
   const role = jwtDecode(token).role
+
+
 
   if (galerias === undefined) return<LoaderInit />
   
