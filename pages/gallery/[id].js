@@ -17,6 +17,8 @@ import GeneralModal from '../../components/GeneralModal/GeneralModal';
 import BtnPaypal from '../../components/Paypal/btnPaypal';
 import LoaderInit from '../../components/Loader/LoaderInit';
 import clientAxios from '../../config/clientAxios'
+import AlertSecurity from '../../components/Alert/AlertSecurity';
+
 const Gallery = (/* { gallery, purchase } */) => {
   /* const { galleryName, queenName, images, price, imageQuantity } = gallery; */
 

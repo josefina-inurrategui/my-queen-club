@@ -13,6 +13,7 @@ import Error from '../components/Error';
 import Msginitial from '../components/MsgInitial/msginitial';
 import AlertSecurity from '../components/Alert/AlertSecurity';
 import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 
 
 const MyApp = ({ Component, pageProps }) => {
@@ -79,22 +80,30 @@ const MyApp = ({ Component, pageProps }) => {
       }
     });
     document.addEventListener('keydown', (e) => { optionsToDisable(e); });
+  }, []);
 
+  useEffect(() => {
     getState()
       .then(res => {
         if (localStorage.length > 0) {
-          const data = jwtDecode(localStorage.getItem('accessToken'))
-          setRole(data.role)
+          const tok = localStorage.getItem('accessToken')
+          if (tok !== null) {
+            const data = jwtDecode(localStorage.getItem('accessToken'))
+            setRole(data.role)
+          }
+          else {
+            setRole(undefined)
+          }
         }
         setLocation(res.state);
         setStatus(false);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err, 'ERROR');
       });
-  }, []);
+  }, [])
 
-  if (location === 'Jujuy' /* process.env.NEXT_PUBLIC_STATE */)  {
+  if (location === process.env.NEXT_PUBLIC_STATE) {
     if (role === 'client' || role === undefined) {
       return <Error texto={'Lo sentimos este contenido esta restringido para su region'} />;
     }
@@ -105,7 +114,7 @@ const MyApp = ({ Component, pageProps }) => {
       {status ? <Loader />
         :
         <UserProvider>
-          {/* <Msginitial/> */}
+          <Msginitial/>
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </Head>
@@ -115,7 +124,7 @@ const MyApp = ({ Component, pageProps }) => {
           />
           <Navbar />
           <Component {...pageProps} />
-      </UserProvider>}
+        </UserProvider>}
     </>
   );
 };

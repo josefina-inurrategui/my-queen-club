@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import { GetLocalStorage } from '../../helper/GetLocalStorage';
 import BtnPaypal from '../../components/Paypal/btnPaypal';
 import clientAxios from '../../config/clientAxios';
+import { useUser } from '../../context/userContext';
+import styles from './modalPay.module.css'
 
 const ModalPay = ({ item , queen , price , galleryName} ) => {
     const router = useRouter()

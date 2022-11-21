@@ -32,20 +32,20 @@ const ModalEditGallery = ({ idModal, galeria }) => {
             reset(defaultValues);
         }
     }, [galeria]);
-   
+
 
     const onSubmit = (data) => {
         console.log(data)
     }
 
 
-    const handleCover=(data)=>{
+    const handleCover = (data) => {
         setCover(data)
     }
-    const handleThree=(data)=>{
+    const handleThree = (data) => {
         setThrePhotos(data)
     }
-    const handleBlur=(data)=>{
+    const handleBlur = (data) => {
         setBlur(data)
     }
 
@@ -55,11 +55,11 @@ const ModalEditGallery = ({ idModal, galeria }) => {
         defaultValues
     });
 
-    /*  if(galeria===undefined)return <LoaderInit/> */
+    if (galeria === undefined) return <LoaderInit />
     return (
         <div className="p-5 d-flex  justify-content-center align-items-center" >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <section className='d-flex w-100 justify-content-center' >
+                <section className='d-flex w-100 justify-content-center flex-wrap'  >
                     <div className="mb-3 m-2">
                         <label htmlFor="nombreGaleria" className={`form-label ${styles.label_edit}`}>Nombre </label>
                         <input autoComplete='false' type="text" className="form-control" id="nombreGaleria" {...register('galleryName', { required: true })} />
@@ -73,12 +73,47 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                         <input type="number" className="form-control" id="precioUsd"  {...register('price_USD', { required: true })} />
                     </div>
                 </section>
-                <section className={`w-100 ${styles.container_photos}`}>
-                    <h3 className='text-white'>FOTOS</h3>
+
+                <h3 className='text-white'>FOTOS</h3>
+                <section className={`w-100 d-flex flex-wrap justify-content-center ${styles.container_photos}`}>
+                    <div className='col-md-3 m-2'>
+                        <h4 className='text-white'>Portada</h4>
+                        <img src={galeria?.coverPhotoGallery} style={{ width: '100%' }} />
+                    </div>
+                    <div className='col-md-3 m-2'>
+                        <h4 className='text-white'>Foto Blur</h4>
+                        <img src={galeria?.photoBlur} style={{ width: '100%', minHeight: '393px' }} />
+                    </div>
                 </section>
-                <CloudinaryUploadImage onSave={handleCover} label='+'/>
-                <CloudinaryUploadImage onSave={handleThree} label='+'/>
-                <CloudinaryUploadImage onSave={handleBlur} label='+'/>
+                <h4 className='text-white'>FOTOS SIN CENSURA</h4>
+                <section className={`w-100 d-flex flex-wrap justify-content-center ${styles.container_photos}`}>
+
+                    {galeria.photosShow.map((res) => {
+                        return (
+                            <div className='col-md-3 m-2 d-flex'>
+                                <img src={res} style={{ width: '100%' }} />
+                            </div>
+                        )
+                    })}
+
+
+                </section>
+                <h4 className='text-white'>FOTOS SUBSCRIPCION</h4>
+                <section className={`w-100 d-flex flex-wrap justify-content-center ${styles.container_photos}`}>
+
+                    {galeria.photos.map((res) => {
+                        return (
+                            <div className='col-md-3 m-2 d-flex'>
+                                <img src={res} style={{ width: '100%' }} />
+                            </div>
+                        )
+                    })}
+
+
+                </section>
+                <CloudinaryUploadImage onSave={handleCover} label='+' />
+                <CloudinaryUploadImage onSave={handleThree} label='+' />
+                <CloudinaryUploadImage onSave={handleBlur} label='+' />
                 <button type="submit" className="btn btn-primary">Guardar Cambios</button>
             </form>
         </div>
