@@ -6,7 +6,6 @@ import styles from './cardhome.module.css';
 const CardHome = ({
   coverImage, name, alt, _id,
 }) => {
-  console.log(coverImage);
   return (
     <div className='m-2 col-md-12 d-flex justify-content-center  position-relative' style={{height:'600px'}}>
       <img src={coverImage} alt={name} /* height={1920} width={1200} layout="responsive" quality={100} priority */ className={styles.cardHome} />

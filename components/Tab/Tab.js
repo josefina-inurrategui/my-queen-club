@@ -4,17 +4,28 @@ import CardCarousel from '../CardCarousel/CardCarousel';
 import styles from './tab.module.css';
 
 const Tab = ({ galleries, queens }) => {
+
   const [activeTab, setActiveTab] = useState(2);
+
   const className = undefined;
   const long = galleries.length / 2;
   const galleries1 = [];
   const galleries2 = []
+  const queens1 = [];
+  const queens2 = [];
 
   galleries?.forEach((res, idx) => {
     if (idx < long)
       galleries1.push(res)
     else
       galleries2.push(res)
+  })
+
+  queens?.forEach((res, idx) => {
+    if (idx < long)
+      queens1.push(res)
+    else
+      queens2.push(res)
   })
 
 
@@ -61,7 +72,8 @@ const Tab = ({ galleries, queens }) => {
         </div>
 
         <div className="tab-pane fade show active" id="pills-queens" role="tabpanel" aria-labelledby="pills-queens-tab">
-          <CardCarousel carouselInfo={queens} queen={5} />
+          <CardCarousel carouselInfo={queens1} queen={5} />
+          <CardCarousel carouselInfo={queens2} queen={5} />
         </div>
 
         <div className="tab-pane fade" id="pills-films" role="tabpanel"

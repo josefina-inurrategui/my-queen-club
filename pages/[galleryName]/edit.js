@@ -15,7 +15,7 @@ const edit = () => {
   const nameGallery=query.galleryName;
   const[galerias,setGalerias]=useState()
   useEffect(()=>{
-    clientAxios('galleries')
+    clientAxios('galleries/admin')
     .then(res=>setGalerias(res?.data?.find((or)=>or.galleryName===nameGallery)))
      
   },[ ])
