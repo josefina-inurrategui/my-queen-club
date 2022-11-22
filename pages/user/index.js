@@ -17,9 +17,11 @@ const User = ({ purchase }) => {
   const [name , setName] = useState("");
   const [lastName , setLastName] = useState("");
   const [role , setRole] = useState("client");
-  const [idUser , setIdUser] = useState("");
   const [email , setEmail] = useState("");
-
+  const token = localStorage.getItem('accessToken');
+  const userToken = jwtDecode(token);
+  const [userName , setUserName] = useState("")
+  const [idUser , setIdUser] = useState(userToken.userId);
 
   const logout = () => {
     localStorage.clear();
@@ -28,32 +30,31 @@ const User = ({ purchase }) => {
   };
 
   const infoUser = async () => {
-    const response = await clientAxios.get(`/user/${userData.userName}`);
+    const response = await clientAxios.get(`user/${idUser}`);
     setRole(response.data.role);
     setName(response.data.name);
     setLastName(response.data.lastName);
     setEmail(response.data.email);
-    setIdUser(response.data._id);
+    setUserName(response.data.userName)
   }
   
   const getCompras = async () => {
-    const response = await clientAxios.get(`/purchase/${idUser}`);
+    const response = await clientAxios.get(`purchase/${idUser}`);
     setCompras(response.data)
   }
 
-  if (localStorage.getItem('accessToken') != null) {
-    infoUser()
-  }
   if(localStorage.getItem('accessToken') === null){
     router.push('/')
   }
 
-  // probar useEffect cmabio de usuario 
-
   useEffect(() => {
+    infoUser()
     getCompras()
-  }, [idUser])
-
+  }, [])
+  
+  // useEffect(()=>{
+  //   infoUser()
+  // },[])
 
   return (
     <div className={styles.controlUser}>
@@ -98,10 +99,10 @@ const User = ({ purchase }) => {
           </div>
         </section>
         <section className='col-12 col-md-8 col-lg-7'>
-          {user === 1 && <EditAccount name={name} lastName={lastName} userName={userData.userName} email={email} />}
-          {user === 2 && <TableBuy role={role} data={compras} key={userData.userName} />}
+          {user === 1 && <EditAccount name={name} lastName={lastName} userName={userName} email={email} />}
+          {user === 2 && <TableBuy role={role} data={compras} key={userName} />}
           {/* {user === 3 && <p className='text-white'>Proximamente</p>} */}
-          {user === 4 && <TableSus data={compras} key={userData.userName} />}
+          {user === 4 && <TableSus data={compras} key={userName} />}
         </section>
       </section>
     </div>

@@ -11,9 +11,10 @@ import clientAxios from '../../config/clientAxios';
 
 const Galleries = ({ galerias }) => {
 
-  console.log(galerias,'SOY GALERIAS ')
   const token = localStorage.getItem('accessToken') || undefined
   const role = token===undefined? 'client': jwtDecode(token).role
+
+
 
   if (galerias === undefined) return<LoaderInit />
   

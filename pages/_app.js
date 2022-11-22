@@ -98,7 +98,9 @@ const MyApp = ({ Component, pageProps }) => {
       })
       .catch(err => {
         console.log(err, 'ERROR');
+        
       });
+      console.log("hola")
   }, [])
 
   

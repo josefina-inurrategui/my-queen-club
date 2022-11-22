@@ -25,18 +25,16 @@ const Gallery = (/* { gallery, purchase } */) => {
   const [gallery, setGallery] = useState('');
   const [status, setStatus] = useState(false);
   const router = useRouter();
-
   const galleriname = router.query.id;
   const token = localStorage.getItem('accessToken');
   const userName = localStorage.getItem('user_name') || undefined;
-
+  const user = jwtDecode(token);
+  const [idUser , setIdUser] = useState(user.userId)
  
   useEffect(() => {
-  
-      clientAxios(`purchase/user/${userName}/${galleriname}`)
+      clientAxios(`purchase/user/${idUser}/${galleriname}`)
       .then(res => {
         setGallery(res.data);
-        console.log('soy data', res.data);
       })
       .catch(err => Swal.fire('Intente nuevamente mastarde'));
 
@@ -94,7 +92,7 @@ const Gallery = (/* { gallery, purchase } */) => {
                     </div>
 
                     <p>
-                      <em>Precio final de la galería AR${/* {price} */}</em>
+                      <em>Precio final de la galería AR${gallery?.price}</em>
                     </p>
                     {
                       !token && <>
@@ -108,7 +106,7 @@ const Gallery = (/* { gallery, purchase } */) => {
 
                   </div>
                   <GeneralModal id='modalPay' name="Como quieres abonar ?">
-                    <ModalPay queen={gallery.idQueen} price={1200} item={gallery.galleryName} galleryName={gallery.galleryName} />
+                    <ModalPay queen={gallery.idQueen} price_USD={gallery?.price_USD} price={gallery?.price} item={gallery.galleryName} galleryName={gallery.galleryName} />
                   </GeneralModal>
                 </div>
               </>

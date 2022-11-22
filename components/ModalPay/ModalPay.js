@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router'
-import { GetLocalStorage } from '../../helper/GetLocalStorage';
 import BtnPaypal from '../../components/Paypal/btnPaypal';
 import clientAxios from '../../config/clientAxios';
 import { useUser } from '../../context/userContext';
 import styles from './modalPay.module.css'
 
-const ModalPay = ({ item , queen , price , galleryName} ) => {
-    const router = useRouter()
-    const {id} = router.query
-    const { userData } = useUser();
+const ModalPay = ({ item , queen , price , galleryName , price_USD} ) => {
     const [linkMP, setlinkMP] = useState("");
     const [buttonPayPal, setButtonPayPal] = useState(false);
-    const token = GetLocalStorage('accessToken');
 
 
     const handleClickMercadoPago = async () => {
@@ -44,7 +37,7 @@ const ModalPay = ({ item , queen , price , galleryName} ) => {
           </button>
         </div>
         <div className='text-center'>
-        {linkMP ? <a href={linkMP}><button className={`${styles.buttonMP}`}> Pagar </button></a> : buttonPayPal ? <BtnPaypal price={price}/>: ""} 
+        {linkMP ? <a href={linkMP}><button className={`${styles.buttonMP}`}> Pagar </button></a> : buttonPayPal ? <BtnPaypal galleryName={galleryName} queen={queen}  price={price_USD}/>: ""} 
         </div> 
       </div>
     </div>

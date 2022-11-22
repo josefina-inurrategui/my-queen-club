@@ -1,9 +1,9 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import axios from 'axios';
-
-const BtnPaypal = ({ price }) => {
+import { useRouter } from 'next/router';
+const BtnPaypal = ({ price , queen , galleryName }) => {
+    const router = useRouter();
   return (
-
         <div style={{ width: '100px' }}>
 
             <PayPalScriptProvider options={{ 'client-id': 'AYVsVNedt0Gob0G8hUy2PSybF-wJQ8kG-M268vTerpNXa6qSDmHQxWofBgf1K1XthpyeB1Fncs5unbm0' }}>
@@ -12,8 +12,8 @@ const BtnPaypal = ({ price }) => {
 
                     createOrder={async () => {
                         try {
-                            const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_BASE}/purchase/paypal`, {
-                                amounts: 150
+                            const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_BASE}purchase/paypal`, {
+                                amounts: price
                             })
                             return res.data.id;
                         }
@@ -26,39 +26,21 @@ const BtnPaypal = ({ price }) => {
                     onCancel={data => console.log('compra cancelada')}
 
                     onApprove={async (data, actions) => {
-                      /*  actions.order.capture();
-                         console.log('compra extiosa')
-                         console.log(data);
-                          */
-                      /* MANDAMOS LA DATA DE LA COMPRA  AL BACK */
-                      /*  return actions.order.capture().then((details) => {
-
-                        //     const name = details.payer.name.given_name;
-                        //     console.log(`Transaction completed by ${name}`);
-                        //     console.log(data)
-
-                        // })*/
                         try {
-                            const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_BASE}/purchase/paypalIpn`,{
-                                userName : 'fabri' ,
-                                gallerieName : 'black ' ,
-                                queen : 'ju lazarte' ,
-                                price : 150 ,
-                            }).then( res =>{
-                                if(res.status === 201){
-                                    // redirect                                    
-                                }
-                            }
-                            )
+                            const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_BASE}purchase/paypalIpn`,{
+                                galleryName : galleryName ,
+                                queen : queen ,
+                                price_USD: price ,
+                            })
+                            if(res.status === 201){
+                                    router.push(`/gallery/${galleryName}`)                 
+                            }  
                         } catch (error) {                        
                             alert("OCURRIO UN ERROR INTENTELO NUEVAMENTE EN UNOS INSTANTES")
-                            console.log(err)                           
+                            router.push(`/gallery/${galleryName}`)                      
                         }
-
-
                     }}
                     onError={err => console.log('error al realizar la transaccion')}
-
                     style={{
                       layout: 'horizontal', color: 'silver', height: 45, tagline: false,
                     }} />

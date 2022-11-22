@@ -7,7 +7,7 @@ import stylesHome from '../../styles/Home.module.css';
 const TableSus = ({ data }) => {
     const router = useRouter();
     const handleClick = (galleryName) => {
-        router.push(`/galleries/${galleryName}`);
+        router.push(`/gallery/${galleryName}`);
     };
 
     const daysRest = (dateBuy) => {
