@@ -13,8 +13,8 @@ const Carousel = ({ carouselInfo, carouselInfoMobile }) => {
   }
 
   return (
-    <>
-      <div id="carouselIndicators" className="carousel slide d-none d-md-block" data-bs-ride="carousel">
+    <>                                                      {/* d-none */}
+      <div id="carouselIndicators" className="carousel slide  d-md-block" data-bs-ride="carousel">
         <div className="carousel-indicators">
           {
             carouselInfo.map((info, index) => (
@@ -28,7 +28,7 @@ const Carousel = ({ carouselInfo, carouselInfoMobile }) => {
               <div className={` ${styles.container_gral} carousel-item ${index === 0 ? 'active' : undefined}`} key={info.id}>
 
                 <div className={`${styles.container1} h-100 position-absolute d-flex justify-content-center align-items-center text-uppercase`}>
-                  <div className={`${styles.container2} h-100  d-flex flex-column justify-content-center align-items-start `}>
+                  <div className={`${styles.container2} h-100  d-flex flex-column justify-content-center align-items-md-start  align-items-lg-start align-items-center `}>
                     <h3 className={styles.title}>{info?.name}</h3>
                     <div className='mt-4'>
                       <button className={styles.btn_banner2} onClick={()=>goQueen(info?.name)}> Ver queen</button>

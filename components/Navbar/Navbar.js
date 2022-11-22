@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import clientAxios from '../../config/clientAxios';
 import { useUser } from '../../context/userContext';
 
 import styles from './navbar.module.css';
@@ -15,6 +17,17 @@ const Navbar = () => {
     router.push('/');
     window.location.reload()
   };
+
+  useEffect(() => {
+    const tok = localStorage.getItem('accessToken')
+    if (tok !== null) {
+      clientAxios('jwt')
+        .then(res => console.log(res))
+        .catch(err => {
+          logout();
+        })
+    }
+  }, [])
 
   return (
     <nav className={`navbar navbar-expand-lg ${styles.bgNav}`}>

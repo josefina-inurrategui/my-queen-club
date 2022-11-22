@@ -14,6 +14,8 @@ import Msginitial from '../components/MsgInitial/msginitial';
 import AlertSecurity from '../components/Alert/AlertSecurity';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+import clientAxios from '../config/clientAxios'
+import { useRouter } from 'next/router';
 
 
 const MyApp = ({ Component, pageProps }) => {
@@ -21,10 +23,6 @@ const MyApp = ({ Component, pageProps }) => {
   const [location, setLocation] = useState(null);
   const [status, setStatus] = useState(true);
   const [role, setRole] = useState(undefined)
-  /* const token = localStorage.getItem('accessToken')
-  const role = jwtDecode(token).role
-
- console.log(role) */
 
   const handleKeyDown = (e) => {
     if (e.code === 'ShiftLeft') {
@@ -103,6 +101,8 @@ const MyApp = ({ Component, pageProps }) => {
       });
   }, [])
 
+  
+
   if (location === process.env.NEXT_PUBLIC_STATE) {
     if (role === 'client' || role === undefined) {
       return <Error texto={'Lo sentimos este contenido esta restringido para su region'} />;
@@ -114,7 +114,7 @@ const MyApp = ({ Component, pageProps }) => {
       {status ? <Loader />
         :
         <UserProvider>
-          <Msginitial/>
+          <Msginitial />
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </Head>

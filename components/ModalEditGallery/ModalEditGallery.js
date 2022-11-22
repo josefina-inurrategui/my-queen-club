@@ -12,10 +12,10 @@ import CloudinaryUploadImage from '../CloudinaryUploadImage/CloudinaryUploadImag
 const ModalEditGallery = ({ idModal, galeria }) => {
 
     console.log(galeria)
-    const [threPhotos, setThrePhotos] = useState([])
-    const [photos, setPhotos] = useState([])
-    const [blur, setBlur] = useState('')
-    const [cover, setCover] = useState('')
+    const [threPhotos, setThrePhotos] = useState(galeria?.photosShow)
+    const [photos, setPhotos] = useState(galeria?.photos)
+    const [blur, setBlur] = useState(galeria?.photoBlur)
+    const [cover, setCover] = useState(galeria?.coverPhotoGallery)
 
     const UpdateUserSchema = Yup.object().shape({
         galleryName: Yup.string().required('Name is required'),
@@ -49,6 +49,10 @@ const ModalEditGallery = ({ idModal, galeria }) => {
         setBlur(data)
     }
 
+    const handleGaleria = (data) => {
+        setPhotos(data)
+    }
+
 
     const { register, handleSubmit, reset } = useForm({
         resolver: yupResolver(UpdateUserSchema),
@@ -74,19 +78,32 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                     </div>
                 </section>
 
-                <h3 className='text-white'>FOTOS</h3>
-                <section className={`w-100 d-flex flex-wrap justify-content-center ${styles.container_photos}`}>
+                <h4 className='text-white'>FOTOS</h4>
+                <section className={`w-100 d-flex flex-wrap align-items-center justify-content-center ${styles.container_photos}`}>
                     <div className='col-md-3 m-2'>
                         <h4 className='text-white'>Portada</h4>
                         <img src={galeria?.coverPhotoGallery} style={{ width: '100%' }} />
                     </div>
+                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff',maxHeight:'50px' }}>
+                    <CloudinaryUploadImage onSave={handleCover} label='+ Editar' />
+                </div>
+
+                </section>
+
+                <section className={`w-100 d-flex flex-wrap  align-items-center justify-content-center ${styles.container_photos}`}>
                     <div className='col-md-3 m-2'>
                         <h4 className='text-white'>Foto Blur</h4>
-                        <img src={galeria?.photoBlur} style={{ width: '100%', minHeight: '393px' }} />
+                        <img src={galeria?.photoBlur} style={{ width: '100%' }} />
                     </div>
+                    <div className='col-md-3 m-2 d-flex ' style={{ border: '1px solid #fff',maxHeight:'50px'  }}>
+                    <CloudinaryUploadImage onSave={handleBlur} label='+ Editar' />
+                    </div>
+
                 </section>
+
+
                 <h4 className='text-white'>FOTOS SIN CENSURA</h4>
-                <section className={`w-100 d-flex flex-wrap justify-content-center ${styles.container_photos}`}>
+                <section className={`w-100 d-flex flex-wrap align-items-center justify-content-center ${styles.container_photos}`}>
 
                     {galeria.photosShow.map((res) => {
                         return (
@@ -96,10 +113,13 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                         )
                     })}
 
+                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff' ,maxHeight:'50px'  }}>
+                        <CloudinaryUploadImage onSave={handleThree} label='+ Agregar' />
+                    </div>
 
                 </section>
                 <h4 className='text-white'>FOTOS SUBSCRIPCION</h4>
-                <section className={`w-100 d-flex flex-wrap justify-content-center ${styles.container_photos}`}>
+                <section className={`w-100 d-flex flex-wrap align-items-center justify-content-center ${styles.container_photos}`}>
 
                     {galeria.photos.map((res) => {
                         return (
@@ -108,12 +128,16 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                             </div>
                         )
                     })}
+                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff',maxHeight:'50px'  }}>
+                        <CloudinaryUploadImage onSave={handleGaleria} label='+ Agregar' />
+                    </div>
 
 
                 </section>
-                <CloudinaryUploadImage onSave={handleCover} label='+' />
-                <CloudinaryUploadImage onSave={handleThree} label='+' />
-                <CloudinaryUploadImage onSave={handleBlur} label='+' />
+                {/* <CloudinaryUploadImage onSave={handleCover} label='+' />
+                 <CloudinaryUploadImage onSave={handleThree} label='+' />
+                 <CloudinaryUploadImage onSave={handleBlur} label='+' /> */}
+
                 <button type="submit" className="btn btn-primary">Guardar Cambios</button>
             </form>
         </div>
