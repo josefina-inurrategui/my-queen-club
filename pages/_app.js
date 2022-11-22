@@ -100,7 +100,9 @@ const MyApp = ({ Component, pageProps }) => {
       })
       .catch(err => {
         console.log(err, 'ERROR');
+        
       });
+      console.log("hola")
   }, [])
 
   if (location === process.env.NEXT_PUBLIC_STATE) {

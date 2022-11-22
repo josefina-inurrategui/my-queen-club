@@ -4,7 +4,7 @@ import clientAxios from '../../config/clientAxios';
 import { useUser } from '../../context/userContext';
 import styles from './modalPay.module.css'
 
-const ModalPay = ({ item , queen , price , galleryName} ) => {
+const ModalPay = ({ item , queen , price , galleryName , price_USD} ) => {
     const [linkMP, setlinkMP] = useState("");
     const [buttonPayPal, setButtonPayPal] = useState(false);
 
@@ -37,7 +37,7 @@ const ModalPay = ({ item , queen , price , galleryName} ) => {
           </button>
         </div>
         <div className='text-center'>
-        {linkMP ? <a href={linkMP}><button className={`${styles.buttonMP}`}> Pagar </button></a> : buttonPayPal ? <BtnPaypal price={price}/>: ""} 
+        {linkMP ? <a href={linkMP}><button className={`${styles.buttonMP}`}> Pagar </button></a> : buttonPayPal ? <BtnPaypal galleryName={galleryName} queen={queen}  price={price_USD}/>: ""} 
         </div> 
       </div>
     </div>
