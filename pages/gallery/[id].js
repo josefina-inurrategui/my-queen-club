@@ -16,7 +16,7 @@ import ModalPay from '../../components/ModalPay/ModalPay';
 import GeneralModal from '../../components/GeneralModal/GeneralModal';
 import BtnPaypal from '../../components/Paypal/btnPaypal';
 import LoaderInit from '../../components/Loader/LoaderInit';
-import clientAxios from '../../config/clientAxios'
+import clientAxios from '../../config/clientAxios';
 import AlertSecurity from '../../components/Alert/AlertSecurity';
 
 const Gallery = (/* { gallery, purchase } */) => {
@@ -29,15 +29,14 @@ const Gallery = (/* { gallery, purchase } */) => {
   const token = localStorage.getItem('accessToken');
   const userName = localStorage.getItem('user_name') || undefined;
   const user = jwtDecode(token);
-  const [idUser , setIdUser] = useState(user.userId)
- 
+  const [idUser, setIdUser] = useState(user.userId);
+
   useEffect(() => {
       clientAxios(`purchase/user/${idUser}/${galleriname}`)
       .then(res => {
         setGallery(res.data);
       })
       .catch(err => Swal.fire('Intente nuevamente mastarde'));
-
   }, []);
 
   if (!gallery) return <LoaderInit />;
@@ -61,16 +60,14 @@ const Gallery = (/* { gallery, purchase } */) => {
 
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
-          {gallery?.photos? <AlertSecurity/>:""}
+          {gallery?.photos ? <AlertSecurity/> : ""}
           {
             gallery?.photos
               ? gallery?.photos?.map((src, i) => (
                 <div key={i} className="mb-3  col-md-3  position-relative d-flex justify-content-center">
                   <img src={src} alt={src} style={{ width: ' 90%', objectFit: 'contain' }}/* width={1000} height={1620} */ />
                 </div>
-              ))
-              :
-              <>
+              )) : <>
                 {
                   gallery?.photosShow?.map((src, i) => (
                     <div key={i} className="mb-3 col-md-3 position-relative d-flex justify-content-center">

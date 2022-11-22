@@ -36,13 +36,11 @@ const Galleries = () => {
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
           {
-            data?.length === 0 ?
-              <h2 className='text-center text-white'>
-                <span style={{ color: '#D44F80',textTransform:'capitalize' }}>
+            data?.length === 0 
+            ? <h2 className='text-center text-white'>
+                <span style={{ color: '#D44F80', textTransform:'capitalize' }}>
                   {Router.query.name}</span> NO TIENE GALERIAS DISPONIBLES
-              </h2>
-              :
-              data?.map((info, index) => (
+              </h2> : data?.map((info, index) => (
                 <>
                   <div key={index} className='col-6 col-md-4 col-lg-3'>
                     <CardGallery galeria={info} gallery />

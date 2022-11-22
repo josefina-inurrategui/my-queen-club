@@ -1,25 +1,21 @@
 import Head from 'next/head';
-import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import Footer from '../../components/Footer/Footer';
 import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
 import CardGallery from '../../components/CardGallery/CardGallery';
-import jwtDecode from 'jwt-decode';
 import styles from '../../styles/Galleries.module.css';
-import data from '../../data/galleries.example.json';
-import LoaderInit from '../../components/Loader/LoaderInit'
+import LoaderInit from '../../components/Loader/LoaderInit';
 import clientAxios from '../../config/clientAxios';
 
 const Galleries = ({ galerias }) => {
 
-  const token = localStorage.getItem('accessToken') || undefined
-  const role = token===undefined? 'client': jwtDecode(token).role
+  const token = localStorage.getItem('accessToken') || undefined;
+  const role = token === undefined ? 'client' : jwtDecode(token).role;
 
-
-
-  if (galerias === undefined) return<LoaderInit />
+  if (galerias === undefined) return <LoaderInit />;
   
-
   return (
+    
     <div className={styles.bgHome}>
       <Head>
         <title>My Queens Club - Enjoy The Club</title>

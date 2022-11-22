@@ -1,29 +1,25 @@
+import { useEffect,useState } from 'react';
 import Head from 'next/head';
 import Carousel from '../components/Carousel/Carousel';
 import Footer from '../components/Footer/Footer';
 import Tab from '../components/Tab/Tab';
-import carouselInfo from '../components/Carousel/carouselData.example.json';
 import carouselInfoMobile from '../components/Carousel/carouselDataMobile.example.json';
 import styles from '../styles/Home.module.css';
 import InfoSection from '../components/InfoSection/InfoSection';
 import ModalSingIn from '../components/ModalSingIn/ModalSingIn';
 import InfoSubs from '../components/InfoSubs/InfoSubs';
-import Checkout from '../components/MercadoPagoPayment/Checkout';
-import axios from 'axios';
 import clientAxios from '../config/clientAxios';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 const Home = ({ galleries, queens, datas }) => {
-  const [banners, setBanners] = useState([])
+  const [banners, setBanners] = useState([]);
   const random = () => {
-    const len = queens.length
-    return Math.floor(Math.random() * len)
+    const len = queens.length;
+    return Math.floor(Math.random() * len);
   }
-  useEffect(() => {
-    setBanners([...banners, queens[random()]])
-  }, [])
 
+  useEffect(() => {
+    setBanners([...banners, queens[random()]]);
+  }, []);
 
   return (
     <div className={styles.bgHome}>
@@ -49,13 +45,12 @@ const Home = ({ galleries, queens, datas }) => {
   );
 };
 
-
 export async function getStaticProps() {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
   const data = await res.json();
-  const dataGalleries = await clientAxios('galleries')
+  const dataGalleries = await clientAxios('galleries');
   const galerias = dataGalleries.data;
-  const dat = await clientAxios("queen")
+  const dat = await clientAxios('queen');
   const queens = dat.data;
   return {
     props: { data, galleries: galerias, queens: queens },
