@@ -10,7 +10,9 @@ import TableBuy from '../../components/TableBuy/TableBuy';
 import TableSus from '../../components/TableSus/TableSus';
 
 const User = ({ purchase }) => {
+
   const { userData, flagReload, setFlagReload } = useUser();
+  
   const [user, setUser] = useState(1);
   const router = useRouter();
   const [compras, setCompras] = useState([])
@@ -19,18 +21,20 @@ const User = ({ purchase }) => {
   const [role , setRole] = useState("client");
   const [email , setEmail] = useState("");
   const token = localStorage.getItem('accessToken');
-  const userToken = jwtDecode(token);
+  const userToken = token?jwtDecode(token):false;
   const [userName , setUserName] = useState("")
-  const [idUser , setIdUser] = useState(userToken.userId);
+  const [idUser , setIdUser] = useState(userToken?userToken.userId:'');
 
-  const logout = () => {
+  /* const logout = () => {
     localStorage.clear();
     setFlagReload(!flagReload);
     router.push('/');
-  };
+  }; */
 
   const infoUser = async () => {
     const response = await clientAxios.get(`user/${idUser}`);
+    console.log(idUser)
+    console.log(response.data,'RESPONSE')
     setRole(response.data.role);
     setName(response.data.name);
     setLastName(response.data.lastName);
@@ -69,7 +73,7 @@ const User = ({ purchase }) => {
               <div className="mt-3 d-flex align-items-center justify-content-between">
                 <i className={`bi bi-person-circle ${styles.icoUser}`}></i>
                 <div className="p-4 d-flex flex-column">
-                  <a className={` ${styles.column} text-end `} href="#" onClick={logout}>Cerrar sesión</a>
+                  {/* <a className={` ${styles.column} text-end `} href="#" onClick={logout}>Cerrar sesión</a> */}
                 </div>
               </div>
               <div className="w-100">

@@ -30,7 +30,7 @@ const EditAccount = ({name , lastName, userName, email  }) => {
   
   return (
      <div className="container w-100">
-      <form onSubmit={handleSubmit(onSubmit)} className="row m-3">
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete='off' className="row m-3">
         <div className="col-12 d-flex justify-content-between mb-4">
           <div className="col-5">
             <label className={`form-label ${styles.formLabel}`}>Nombre</label>
@@ -45,7 +45,7 @@ const EditAccount = ({name , lastName, userName, email  }) => {
         </div>
         <div className="col-12 mb-4">
           <label className={`form-label ${styles.formLabel}`}>Nombre de Usuario</label>
-          <input type="text" className={`form-control form-control-sm ${styles.formPlaceholder} ${styles.text}`} id="nameVisibleUser" defaultValue={userName} aria-describedby="nameVisibleUser"  {...register('userName', { required: '* Este campo es requerido', minLength: { value: 4, message: '* El nombre de usuario de contener entre 4 y 10 caracteres' }, maxLength: { value: 10, message: '* El nombre de usuario de contener entre 4 y 10 caracteres' } })}  />
+          <input type="text"  className={`form-control form-control-sm ${styles.formPlaceholder} ${styles.text}`} id="nameVisibleUser" defaultValue={userName} aria-describedby="nameVisibleUser"  {...register('userName', { required: '* Este campo es requerido', minLength: { value: 4, message: '* El nombre de usuario de contener entre 4 y 10 caracteres' }, maxLength: { value: 10, message: '* El nombre de usuario de contener entre 4 y 10 caracteres' } })}  />
           <div id="nameVisibleUser" className={`form-text fst-italic ${styles.formLabel}`}>
             Así será como se mostrará tu nombre en la sección de tú cuenta y en las valoraciones.
             {errors.userName && <p className={`mb-3 ${styles.text}`}>{errors.userName.message}</p>}

@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/router';
 import { createContext, useState, useContext, useEffect } from 'react';
 
 export const UserContext = createContext();
@@ -12,6 +14,7 @@ export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const [flagReload, setFlagReload] = useState(false);
   const [acept , setAcept] = useState(true);
+  const{push}=useRouter()
 
   const getUserData = () => {
     setUserData({
@@ -21,7 +24,13 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getUserData();
+    if(localStorage.getItem('accessToken')){
+      getUserData();
+    }
+    else{
+      push('/')
+    }
+    
   }, [flagReload]);
 
 

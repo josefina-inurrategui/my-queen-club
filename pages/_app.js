@@ -24,6 +24,7 @@ const MyApp = ({ Component, pageProps }) => {
   const [status, setStatus] = useState(true);
   const [role, setRole] = useState(undefined)
 
+
   const handleKeyDown = (e) => {
     if (e.code === 'ShiftLeft') {
       setIsScreenShoot(true);
@@ -85,12 +86,13 @@ const MyApp = ({ Component, pageProps }) => {
       .then(res => {
         if (localStorage.length > 0) {
           const tok = localStorage.getItem('accessToken')
-          if (tok !== null) {
+          if (tok !== null && tok!==undefined) {
             const data = jwtDecode(localStorage.getItem('accessToken'))
             setRole(data.role)
           }
           else {
             setRole(undefined)
+            
           }
         }
         setLocation(res.state);
