@@ -45,8 +45,6 @@ const NewQueen = ({ setQueen }) => {
       photoCarrusel: imageBanner[0],
     };
 
-    console.log(data);
-
     clientAxios.post('/queen', finalData)
       .then(response => {
         if (response.status === 200) {
@@ -65,7 +63,6 @@ const NewQueen = ({ setQueen }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire({
           icon: 'error',
           iconColor: '#D44F80',
@@ -123,7 +120,7 @@ const NewQueen = ({ setQueen }) => {
       </div>
       <div className='position-relative'>
         {
-          image?.length > 0 && <img className={styles.image} src={image}></img>
+          image?.length > 0 && <img className={styles.image} src={image} alt=""></img>
         }
 
       </div>

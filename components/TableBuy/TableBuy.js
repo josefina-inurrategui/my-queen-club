@@ -3,7 +3,6 @@ import Table from 'react-bootstrap/Table';
 import styles from '../../styles/Home.module.css';
 
 const TableBuy = ({ data, role }) => {
-  console.log(data);
   return (
         <div>
             <h5 className={styles.title}>{role === 'client' ? 'Compras' : 'Ventas'}</h5>

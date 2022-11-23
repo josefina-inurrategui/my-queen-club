@@ -4,11 +4,9 @@ import { useRouter } from 'next/router';
 import styles from './register.module.css';
 
 const Register = () => {
-  const urlbase = process.env.NEXT_PUBLIC_URL_BASE;
   const [isValid, setIsValid] = useState(true);
   const [validEmail, setValidEmail] = useState({});
   const [validUserName, setValidUserName] = useState({});
-  const router = useRouter();
   const {
     register, handleSubmit, formState: { errors },
   } = useForm();

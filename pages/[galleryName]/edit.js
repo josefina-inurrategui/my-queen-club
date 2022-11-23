@@ -9,7 +9,7 @@ import ModalEditGallery from '../../components/ModalEditGallery/ModalEditGallery
 import clientAxios from '../../config/clientAxios';
 
 const Edit = () => {
-  const { query, push } = useRouter();
+  const { query } = useRouter();
   const nameGallery = query.galleryName;
   const [galerias, setGalerias] = useState();
 

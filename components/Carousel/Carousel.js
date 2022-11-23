@@ -1,9 +1,8 @@
-import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import styles from './carousel.module.css';
 
-const Carousel = ({ carouselInfo, carouselInfoMobile }) => {
+const Carousel = ({ carouselInfo }) => {
   const { push } = useRouter();
 
   const goQueen = (name) => {
@@ -14,7 +13,7 @@ const Carousel = ({ carouselInfo, carouselInfoMobile }) => {
   };
 
   return (
-    <>                                                      {/* d-none */}
+    <>
       <div id="carouselIndicators" className="carousel slide  d-md-block" data-bs-ride="carousel">
         <div className="carousel-indicators">
           {

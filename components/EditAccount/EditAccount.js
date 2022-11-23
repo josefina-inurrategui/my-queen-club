@@ -8,7 +8,6 @@ const EditAccount = ({
 }) => {
   const [isValid, setIsValid] = useState(true);
   const [menssage, setMenssage] = useState('');
-  const [validUserName, setValidUserName] = useState({});
   const {
     register, handleSubmit, formState: { errors }, reset,
   } = useForm();

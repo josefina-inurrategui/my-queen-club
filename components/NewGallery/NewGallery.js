@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import Image from 'next/image';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import clientAxios from '../../config/clientAxios';
@@ -43,8 +41,6 @@ const NewGallery = ({ queenSelect }) => {
       photosShow: three,
       photos: gallery,
     };
-    console.log('hola');
-    console.log(dataFinished);
     clientAxios.post('galleries', dataFinished)
       .then(response => {
         Swal.fire('Galeria creada con exito');
@@ -78,6 +74,7 @@ const NewGallery = ({ queenSelect }) => {
   const handleDeleteThree = (img) => {
     setThree(three.filter(res => res !== img));
   };
+
   const handleThreeImages = (img) => {
     if (three === 3) return;
     setThree(img);
@@ -85,8 +82,6 @@ const NewGallery = ({ queenSelect }) => {
   const handleCensorshipImage = (img) => {
     setCensoriship(img);
   };
-  /*   console.log(three,'soy las tres fotos')
-  console.log(coverPhotoGallery,'soy cover photo') */
 
   useEffect(() => {
     handleQueen();

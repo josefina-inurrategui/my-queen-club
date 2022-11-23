@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import jwtDecode from 'jwt-decode';
-import axios from 'axios';
-import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar/Navbar';
 import { UserProvider, useUser } from '../context/userContext';
 import { getState } from '../ipState/ipState';
@@ -94,7 +92,6 @@ const MyApp = ({ Component, pageProps }) => {
       .catch(err => {
         console.log(err, 'ERROR');
       });
-    console.log('hola');
   }, []);
 
   if (location === process.env.NEXT_PUBLIC_STATE) {

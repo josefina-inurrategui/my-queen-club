@@ -3,14 +3,11 @@ import { useRouter } from 'next/router';
 import jwtDecode from 'jwt-decode';
 import styles from '../../styles/Home.module.css';
 import EditAccount from '../../components/EditAccount/EditAccount';
-import { useUser } from '../../context/userContext';
 import clientAxios from '../../config/clientAxios';
 import TableBuy from '../../components/TableBuy/TableBuy';
 import TableSus from '../../components/TableSus/TableSus';
 
-const User = ({ purchase }) => {
-  const { userData, flagReload, setFlagReload } = useUser();
-
+const User = () => {
   const [user, setUser] = useState(1);
   const router = useRouter();
   const [compras, setCompras] = useState([]);
@@ -23,16 +20,8 @@ const User = ({ purchase }) => {
   const [userName, setUserName] = useState('');
   const [idUser, setIdUser] = useState(userToken ? userToken.userId : '');
 
-  /* const logout = () => {
-    localStorage.clear();
-    setFlagReload(!flagReload);
-    router.push('/');
-  }; */
-
   const infoUser = async () => {
     const response = await clientAxios.get(`user/${idUser}`);
-    console.log(idUser);
-    console.log(response.data, 'RESPONSE');
     setRole(response.data.role);
     setName(response.data.name);
     setLastName(response.data.lastName);
@@ -54,10 +43,6 @@ const User = ({ purchase }) => {
     getCompras();
   }, []);
 
-  // useEffect(()=>{
-  //   infoUser()
-  // },[])
-
   return (
     <div className={styles.controlUser}>
       <div className="text-center py-5">
@@ -70,9 +55,6 @@ const User = ({ purchase }) => {
             <div className="d-flex justify-content-center flex-wrap">
               <div className="mt-3 d-flex align-items-center justify-content-between">
                 <i className={`bi bi-person-circle ${styles.icoUser}`}></i>
-                <div className="p-4 d-flex flex-column">
-                  {/* <a className={` ${styles.column} text-end `} href="#" onClick={logout}>Cerrar sesión</a> */}
-                </div>
               </div>
               <div className="w-100">
                 <nav className="nav flex-column mt-5">
@@ -88,9 +70,6 @@ const User = ({ purchase }) => {
                     </div>}
                   {role === 'client'
                     && <div>
-                      {/* <div className={`nav-link ${styles.column}`}>
-                        <span onClick={() => setUser(3)}>Método de pago</span>
-                      </div> */}
                       <div className={`nav-link ${styles.column}`}>
                         <span onClick={() => setUser(4)}>Suscripciones</span>
                       </div>
@@ -103,7 +82,6 @@ const User = ({ purchase }) => {
         <section className='col-12 col-md-8 col-lg-7'>
           {user === 1 && <EditAccount name={name} lastName={lastName} userName={userName} email={email} />}
           {user === 2 && <TableBuy role={role} data={compras} key={userName} />}
-          {/* {user === 3 && <p className='text-white'>Proximamente</p>} */}
           {user === 4 && <TableSus data={compras} key={userName} />}
         </section>
       </section>

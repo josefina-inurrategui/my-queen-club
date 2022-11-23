@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import ModalSingIn from './ModalSingIn/ModalSingIn';
-
 import Login from './Login/Login';
 
 const Error = ({ texto, number }) => {

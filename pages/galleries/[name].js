@@ -10,7 +10,6 @@ import clientAxios from '../../config/clientAxios';
 
 const Galleries = () => {
   const route = useRouter();
-  console.log(route.query.name);
   const [data, setData] = useState();
   useEffect(() => {
     clientAxios(`/galleries/queen/${route.query.name}`)

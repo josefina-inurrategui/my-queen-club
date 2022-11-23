@@ -10,7 +10,7 @@ import ModalSingIn from '../components/ModalSingIn/ModalSingIn';
 import InfoSubs from '../components/InfoSubs/InfoSubs';
 import clientAxios from '../config/clientAxios';
 
-const Home = ({ galleries, queens, datas }) => {
+const Home = ({ galleries, queens }) => {
   const [banners, setBanners] = useState([]);
   const random = () => {
     const len = queens.length;

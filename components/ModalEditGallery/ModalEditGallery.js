@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,8 +7,7 @@ import LoaderInit from '../Loader/LoaderInit';
 
 import CloudinaryUploadImage from '../CloudinaryUploadImage/CloudinaryUploadImage';
 
-const ModalEditGallery = ({ idModal, galeria }) => {
-  console.log(galeria);
+const ModalEditGallery = ({ galeria }) => {
   const [threPhotos, setThrePhotos] = useState(galeria?.photosShow);
   const [photos, setPhotos] = useState(galeria?.photos);
   const [blur, setBlur] = useState(galeria?.photoBlur);
@@ -76,7 +75,7 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                 <section className={`w-100 d-flex flex-wrap align-items-center justify-content-center ${styles.container_photos}`}>
                     <div className='col-md-3 m-2'>
                         <h4 className='text-white'>Portada</h4>
-                        <img src={galeria?.coverPhotoGallery} style={{ width: '100%' }} />
+                        <img src={galeria?.coverPhotoGallery} alt={galeria?.galleryName} style={{ width: '100%' }} />
                     </div>
                     <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff', maxHeight: '50px' }}>
                     <CloudinaryUploadImage onSave={handleCover} label='+ Editar' />
@@ -117,7 +116,7 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                     {galeria.photos.map((res, i) => {
                       return (
                             <div className='col-md-3 m-2 d-flex' key={i}>
-                                <img src={res} style={{ width: '100%' }} />
+                                <img src={res} style={{ width: '100%' }} alt={galeria?.galleryName}/>
                             </div>
                       );
                     })}

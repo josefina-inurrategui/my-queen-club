@@ -1,5 +1,4 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import clientAxios from '../../config/clientAxios';
 

@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import BtnPaypal from '../Paypal/btnPaypal';
 import clientAxios from '../../config/clientAxios';
-import { useUser } from '../../context/userContext';
 import styles from './modalPay.module.css';
 
 const ModalPay = ({

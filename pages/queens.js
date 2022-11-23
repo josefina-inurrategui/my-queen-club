@@ -14,7 +14,6 @@ const Queens = () => {
       .then(res => setData(res.data));
   }, []);
 
-  console.log(data);
   if (data.length === 0) return <LoaderInit />;
   return (
     <div className={styles.bgHome}>

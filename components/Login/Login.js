@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import styles from './login.module.css';
 
 const Login = () => {
-  const urlbase = process.env.NEXT_PUBLIC_URL_BASE;
   const [error, setError] = useState({});
   const { register, handleSubmit, formState: { errors } } = useForm();
 

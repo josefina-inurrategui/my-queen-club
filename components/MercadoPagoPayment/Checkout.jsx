@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useMercadopago } from 'react-sdk-mercadopago';
 
 export default function Checkout({
-  user, galleryName, queen, price, id,
+  galleryName, queen, price, id,
 }) {
   // const mercadopago = useMercadopago.v2(process.env.NEXT_PUBLIC_MP_PUBLIC_KEY, {
   //     locale: "en-AR",

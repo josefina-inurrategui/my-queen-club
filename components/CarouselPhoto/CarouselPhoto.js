@@ -14,18 +14,15 @@ const CarouselPhoto = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data, 'soy data');
     await clientAxios.post('/queen', data);
   };
 
   const handleQueen = async () => {
     const response = await clientAxios.get('/queen');
-    console.log(response.data);
     setQueen(response.data);
   };
 
   const handleCoverImage = (arrayImages) => {
-    console.log(arrayImages);
     setCoverImage(arrayImages);
   };
 
@@ -36,7 +33,7 @@ const CarouselPhoto = () => {
   return (
     <form className="col-8" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-3 pt-5">
-        <h2 /* className='text-white' */ style={{ color: '#D44F80' }}>CREAR CARRUSEL</h2>
+        <h2 style={{ color: '#D44F80' }}>CREAR CARRUSEL</h2>
         <label className={`form-label ${styles.title}`}>Nombre de Queen</label>
         <select className={`form-select ${styles.placeholder}`} {...register('idQueen', { required: true })}>
           <option selected>Seleccione una Queen</option>

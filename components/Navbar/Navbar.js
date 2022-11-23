@@ -12,7 +12,7 @@ import styles from './navbar.module.css';
 const Navbar = () => {
   const router = useRouter();
   const {
-    setUserData, userData, flagReload, setFlagReload,
+    userData, flagReload, setFlagReload,
   } = useUser();
   const [role, setRole] = useState('');
 

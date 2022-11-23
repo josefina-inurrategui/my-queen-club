@@ -1,12 +1,9 @@
-import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import styles from './cardgallery.module.css';
-import ModalPay from '../ModalPay/ModalPay';
 import clientAxios from '../../config/clientAxios';
-import ModalEditGallery from '../ModalEditGallery/ModalEditGallery';
 
 const CardGallery = ({
   gallery, index = false, role, galeria,
@@ -14,8 +11,6 @@ const CardGallery = ({
   const {
     _id, coverPhotoGallery, galleryName, price, price_USD, numberPhotos,
   } = galeria;
-
-  const [data, setData] = useState();
 
   const router = useRouter();
 
@@ -49,7 +44,7 @@ const CardGallery = ({
   return (
     <div className="m-1">
 
-      <div className={styles.cardGallery} onClick={index ? handleClick : console.log('...') } >
+      <div className={styles.cardGallery} onClick={index ? handleClick : false } >
 
         <div className='position-relative'>
           <img style={{ height: 400, width: '100%', objectFit: index ? 'cover' : 'contain' }} src={coverPhotoGallery} alt={galleryName}/*  height={1920} width={1200} layout="responsive" quality={100} priority  */ />
