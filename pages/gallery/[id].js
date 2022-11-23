@@ -28,11 +28,11 @@ const Gallery = (/* { gallery, purchase } */) => {
   const galleriname = router.query.id;
   const token = localStorage.getItem('accessToken');
   const userName = localStorage.getItem('user_name') || undefined;
-  const user = jwtDecode(token);
-  const [idUser, setIdUser] = useState(user.userId);
+  const user = token ? jwtDecode(token) : false;
+  const [idUser, setIdUser] = useState(user ? user.userId : 0);
 
   useEffect(() => {
-      clientAxios(`purchase/user/${idUser}/${galleriname}`)
+    clientAxios(`purchase/user/${idUser}/${galleriname}`)
       .then(res => {
         setGallery(res.data);
       })
@@ -60,7 +60,7 @@ const Gallery = (/* { gallery, purchase } */) => {
 
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
-          {gallery?.photos ? <AlertSecurity/> : ""}
+          {gallery?.photos ? <AlertSecurity/> : ''}
           {
             gallery?.photos
               ? gallery?.photos?.map((src, i) => (

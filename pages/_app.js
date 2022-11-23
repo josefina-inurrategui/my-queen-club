@@ -5,25 +5,21 @@ import Script from 'next/script';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar/Navbar';
 import { UserProvider, useUser } from '../context/userContext';
 import { getState } from '../ipState/ipState';
 import Loader from '../components/Loader/LoaderInit';
 import Error from '../components/Error';
-import Msginitial from '../components/MsgInitial/msginitial';
-import AlertSecurity from '../components/Alert/AlertSecurity';
-import jwtDecode from 'jwt-decode';
-import axios from 'axios';
-import clientAxios from '../config/clientAxios'
-import { useRouter } from 'next/router';
-
+import Msginitial from '../components/MsgInitial/Msginitial';
 
 const MyApp = ({ Component, pageProps }) => {
   const [isScreenShoot, setIsScreenShoot] = useState(false);
   const [location, setLocation] = useState(null);
   const [status, setStatus] = useState(true);
-  const [role, setRole] = useState(undefined)
-
+  const [role, setRole] = useState(undefined);
 
   const handleKeyDown = (e) => {
     if (e.code === 'ShiftLeft') {
@@ -70,7 +66,6 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }
 
-
   useEffect(() => {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'PrintScreen') { // Deshabilita captura de pantalla --> Tecla (imp pnt)
@@ -85,14 +80,12 @@ const MyApp = ({ Component, pageProps }) => {
     getState()
       .then(res => {
         if (localStorage.length > 0) {
-          const tok = localStorage.getItem('accessToken')
-          if (tok !== null && tok!==undefined) {
-            const data = jwtDecode(localStorage.getItem('accessToken'))
-            setRole(data.role)
-          }
-          else {
-            setRole(undefined)
-            
+          const tok = localStorage.getItem('accessToken');
+          if (tok !== null && tok !== undefined) {
+            const data = jwtDecode(localStorage.getItem('accessToken'));
+            setRole(data.role);
+          } else {
+            setRole(undefined);
           }
         }
         setLocation(res.state);
@@ -100,12 +93,9 @@ const MyApp = ({ Component, pageProps }) => {
       })
       .catch(err => {
         console.log(err, 'ERROR');
-        
       });
-      console.log("hola")
-  }, [])
-
-  
+    console.log('hola');
+  }, []);
 
   if (location === process.env.NEXT_PUBLIC_STATE) {
     if (role === 'client' || role === undefined) {
@@ -116,8 +106,7 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       {status ? <Loader />
-        :
-        <UserProvider>
+        : <UserProvider>
           <Msginitial />
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Carousel from '../components/Carousel/Carousel';
 import Footer from '../components/Footer/Footer';
@@ -15,7 +15,7 @@ const Home = ({ galleries, queens, datas }) => {
   const random = () => {
     const len = queens.length;
     return Math.floor(Math.random() * len);
-  }
+  };
 
   useEffect(() => {
     setBanners([...banners, queens[random()]]);
@@ -53,9 +53,8 @@ export async function getStaticProps() {
   const dat = await clientAxios('queen');
   const queens = dat.data;
   return {
-    props: { data, galleries: galerias, queens: queens },
+    props: { data, galleries: galerias, queens },
   };
 }
-
 
 export default Home;

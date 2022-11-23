@@ -4,30 +4,22 @@ import CardCarousel from '../CardCarousel/CardCarousel';
 import styles from './tab.module.css';
 
 const Tab = ({ galleries, queens }) => {
-
   const [activeTab, setActiveTab] = useState(2);
 
   const className = undefined;
   const long = galleries.length / 2;
   const galleries1 = [];
-  const galleries2 = []
+  const galleries2 = [];
   const queens1 = [];
   const queens2 = [];
 
   galleries?.forEach((res, idx) => {
-    if (idx < long)
-      galleries1.push(res)
-    else
-      galleries2.push(res)
-  })
+    if (idx < long) { galleries1.push(res); } else { galleries2.push(res); }
+  });
 
   queens?.forEach((res, idx) => {
-    if (idx < long)
-      queens1.push(res)
-    else
-      queens2.push(res)
-  })
-
+    if (idx < long) { queens1.push(res); } else { queens2.push(res); }
+  });
 
   return (
     <>
@@ -86,7 +78,6 @@ const Tab = ({ galleries, queens }) => {
     </>
   );
 };
-
 
 Tab.propTypes = {
   className: PropTypes.string,

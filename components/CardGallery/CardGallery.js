@@ -2,20 +2,23 @@ import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 import styles from './cardgallery.module.css';
 import ModalPay from '../ModalPay/ModalPay';
-import clientAxios from '../../config/clientAxios'
-import Swal from 'sweetalert2';
+import clientAxios from '../../config/clientAxios';
 import ModalEditGallery from '../ModalEditGallery/ModalEditGallery';
 
-const CardGallery = ({ gallery, index = false, role, galeria }) => {
+const CardGallery = ({
+  gallery, index = false, role, galeria,
+}) => {
+  const {
+    _id, coverPhotoGallery, galleryName, price, price_USD, numberPhotos,
+  } = galeria;
 
-  const { _id, coverPhotoGallery, galleryName, price, price_USD, numberPhotos } = galeria
-  
-  const [data, setData] = useState()
+  const [data, setData] = useState();
 
   const router = useRouter();
-  
+
   const handleClick = () => {
     router.push(`/gallery/${galleryName}`);
   };
@@ -29,24 +32,24 @@ const CardGallery = ({ gallery, index = false, role, galeria }) => {
     }).then(res => {
       if (res.isConfirmed) {
         clientAxios.delete(`galleries/delete/${_id}`)
-          .then(res => {
+          .then(resp => {
             Swal.fire({
               icon: 'success',
               html: `<h2> ${galleryName} borrada con exito</h2>`,
-            })
-            window.location.reload()
-          })
+            });
+            window.location.reload();
+          });
       }
-    })
-  }
+    });
+  };
   const handleGaleria = () => {
-    router.push(`/${galleryName}/edit`)
-  }
+    router.push(`/${galleryName}/edit`);
+  };
 
   return (
     <div className="m-1">
 
-      <div className={styles.cardGallery} onClick={() => { index ? handleClick() : console.log('...') }} >
+      <div className={styles.cardGallery} onClick={index ? handleClick : console.log('...') } >
 
         <div className='position-relative'>
           <img style={{ height: 400, width: '100%', objectFit: index ? 'cover' : 'contain' }} src={coverPhotoGallery} alt={galleryName}/*  height={1920} width={1200} layout="responsive" quality={100} priority  */ />
@@ -54,21 +57,21 @@ const CardGallery = ({ gallery, index = false, role, galeria }) => {
             <i className="bi bi-camera me-1" />
             <div className={styles.imageQuantity}>{numberPhotos}</div>
           </div>
-          {role === 'admin' &&
-            <>
+          {role === 'admin'
+            && <>
               <button
                 onClick={() => deleteGallery()}
                 className='btn btn-primary position-absolute'
                 style={{ right: 8, width: 40, height: 40 }}>
-                <i class="bi bi-trash"></i>
+                <i className="bi bi-trash"></i>
               </button>
 
               <button
                 onClick={handleGaleria}
-                 /*data-bs-toggle="modal" data-bs-target={`#editModal${_id}`} */
+                 /* data-bs-toggle="modal" data-bs-target={`#editModal${_id}`} */
                 className='btn btn-primary position-absolute'
                 style={{ right: 55, width: 40, height: 40 }}>
-                <i class="bi bi-pencil-square"></i>
+                <i className="bi bi-pencil-square"></i>
               </button>
             </>
           }

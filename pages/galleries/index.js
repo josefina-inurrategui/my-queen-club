@@ -8,14 +8,13 @@ import LoaderInit from '../../components/Loader/LoaderInit';
 import clientAxios from '../../config/clientAxios';
 
 const Galleries = ({ galerias }) => {
-
   const token = localStorage.getItem('accessToken') || undefined;
   const role = token === undefined ? 'client' : jwtDecode(token).role;
 
   if (galerias === undefined) return <LoaderInit />;
-  
+
   return (
-    
+
     <div className={styles.bgHome}>
       <Head>
         <title>My Queens Club - Enjoy The Club</title>
@@ -33,7 +32,7 @@ const Galleries = ({ galerias }) => {
           {
             galerias.map((info, index) => (
               <div key={index} className='col-6 col-md-4 col-lg-3l'>
-                <CardGallery role={role}  galeria={info} gallery />
+                <CardGallery role={role} galeria={info} gallery />
               </div>
             ))
           }

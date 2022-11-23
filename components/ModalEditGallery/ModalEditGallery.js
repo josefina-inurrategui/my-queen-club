@@ -1,69 +1,63 @@
-import React from 'react'
+import React, { useMemo, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
-import styles from '../modalSingIn/modalsingin.module.css';
 import { yupResolver } from '@hookform/resolvers/yup';
+import styles from './modalEditGallery.module.css';
 import LoaderInit from '../Loader/LoaderInit';
-import { useMemo } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+
 import CloudinaryUploadImage from '../CloudinaryUploadImage/CloudinaryUploadImage';
 
 const ModalEditGallery = ({ idModal, galeria }) => {
+  console.log(galeria);
+  const [threPhotos, setThrePhotos] = useState(galeria?.photosShow);
+  const [photos, setPhotos] = useState(galeria?.photos);
+  const [blur, setBlur] = useState(galeria?.photoBlur);
+  const [cover, setCover] = useState(galeria?.coverPhotoGallery);
 
-    console.log(galeria)
-    const [threPhotos, setThrePhotos] = useState(galeria?.photosShow)
-    const [photos, setPhotos] = useState(galeria?.photos)
-    const [blur, setBlur] = useState(galeria?.photoBlur)
-    const [cover, setCover] = useState(galeria?.coverPhotoGallery)
+  const UpdateUserSchema = Yup.object().shape({
+    galleryName: Yup.string().required('Name is required'),
+  });
 
-    const UpdateUserSchema = Yup.object().shape({
-        galleryName: Yup.string().required('Name is required'),
-    });
+  const defaultValues = {
+    galleryName: galeria?.galleryName,
+    price_USD: galeria?.price_USD,
+    price: galeria?.price,
+  };
 
-    const defaultValues = {
-        galleryName: galeria?.galleryName,
-        price_USD: galeria?.price_USD,
-        price: galeria?.price,
+  const { register, handleSubmit, reset } = useForm({
+    resolver: yupResolver(UpdateUserSchema),
+    defaultValues,
+  });
+
+  useEffect(() => {
+    if (galeria) {
+      reset(defaultValues);
     }
+  }, [galeria]);
 
-    useEffect(() => {
-        if (galeria) {
-            reset(defaultValues);
-        }
-    }, [galeria]);
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
+  const handleCover = (data) => {
+    setCover(data);
+  };
+  const handleThree = (data) => {
+    setThrePhotos(data);
+  };
+  const handleBlur = (data) => {
+    setBlur(data);
+  };
 
-    const onSubmit = (data) => {
-        console.log(data)
-    }
+  const handleGaleria = (data) => {
+    setPhotos(data);
+  };
 
-
-    const handleCover = (data) => {
-        setCover(data)
-    }
-    const handleThree = (data) => {
-        setThrePhotos(data)
-    }
-    const handleBlur = (data) => {
-        setBlur(data)
-    }
-
-    const handleGaleria = (data) => {
-        setPhotos(data)
-    }
-
-
-    const { register, handleSubmit, reset } = useForm({
-        resolver: yupResolver(UpdateUserSchema),
-        defaultValues
-    });
-
-    if (galeria === undefined) return <LoaderInit />
-    return (
+  if (galeria === undefined) return <LoaderInit />;
+  return (
         <div className="p-5 d-flex  justify-content-center align-items-center" >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <section className='d-flex w-100 justify-content-center flex-wrap'  >
+                <section className='d-flex w-100 justify-content-center flex-wrap' >
                     <div className="mb-3 m-2">
                         <label htmlFor="nombreGaleria" className={`form-label ${styles.label_edit}`}>Nombre </label>
                         <input autoComplete='false' type="text" className="form-control" id="nombreGaleria" {...register('galleryName', { required: true })} />
@@ -74,7 +68,7 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                     </div>
                     <div className="mb-3 m-2">
                         <label htmlFor="precioUsd" className={`form-label ${styles.label_edit}`}>Precio USD</label>
-                        <input type="number" className="form-control" id="precioUsd"  {...register('price_USD', { required: true })} />
+                        <input type="number" className="form-control" id="precioUsd" {...register('price_USD', { required: true })} />
                     </div>
                 </section>
 
@@ -84,7 +78,7 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                         <h4 className='text-white'>Portada</h4>
                         <img src={galeria?.coverPhotoGallery} style={{ width: '100%' }} />
                     </div>
-                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff',maxHeight:'50px' }}>
+                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff', maxHeight: '50px' }}>
                     <CloudinaryUploadImage onSave={handleCover} label='+ Editar' />
                 </div>
 
@@ -95,25 +89,24 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                         <h4 className='text-white'>Foto Blur</h4>
                         <img src={galeria?.photoBlur} style={{ width: '100%' }} />
                     </div>
-                    <div className='col-md-3 m-2 d-flex ' style={{ border: '1px solid #fff',maxHeight:'50px'  }}>
+                    <div className='col-md-3 m-2 d-flex ' style={{ border: '1px solid #fff', maxHeight: '50px' }}>
                     <CloudinaryUploadImage onSave={handleBlur} label='+ Editar' />
                     </div>
 
                 </section>
 
-
                 <h4 className='text-white'>FOTOS SIN CENSURA</h4>
                 <section className={`w-100 d-flex flex-wrap align-items-center justify-content-center ${styles.container_photos}`}>
 
-                    {galeria.photosShow.map((res) => {
-                        return (
-                            <div className='col-md-3 m-2 d-flex'>
+                    {galeria.photosShow.map((res, i) => {
+                      return (
+                            <div className='col-md-3 m-2 d-flex' key={i}>
                                 <img src={res} style={{ width: '100%' }} />
                             </div>
-                        )
+                      );
                     })}
 
-                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff' ,maxHeight:'50px'  }}>
+                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff', maxHeight: '50px' }}>
                         <CloudinaryUploadImage onSave={handleThree} label='+ Agregar' />
                     </div>
 
@@ -121,17 +114,16 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                 <h4 className='text-white'>FOTOS SUBSCRIPCION</h4>
                 <section className={`w-100 d-flex flex-wrap align-items-center justify-content-center ${styles.container_photos}`}>
 
-                    {galeria.photos.map((res) => {
-                        return (
-                            <div className='col-md-3 m-2 d-flex'>
+                    {galeria.photos.map((res, i) => {
+                      return (
+                            <div className='col-md-3 m-2 d-flex' key={i}>
                                 <img src={res} style={{ width: '100%' }} />
                             </div>
-                        )
+                      );
                     })}
-                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff',maxHeight:'50px'  }}>
+                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff', maxHeight: '50px' }}>
                         <CloudinaryUploadImage onSave={handleGaleria} label='+ Agregar' />
                     </div>
-
 
                 </section>
                 {/* <CloudinaryUploadImage onSave={handleCover} label='+' />
@@ -141,7 +133,7 @@ const ModalEditGallery = ({ idModal, galeria }) => {
                 <button type="submit" className="btn btn-primary">Guardar Cambios</button>
             </form>
         </div>
-    )
-}
+  );
+};
 
-export default ModalEditGallery
+export default ModalEditGallery;

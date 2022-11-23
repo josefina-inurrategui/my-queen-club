@@ -1,12 +1,10 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import jwtDecode from 'jwt-decode';
-import { useRouter } from 'next/router';
 import NewQueen from '../../components/NewQueen/NewQueen';
 import NewGallery from '../../components/NewGallery/NewGallery';
 import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
 import styles from '../../styles/Home.module.css';
-import CarouselPhoto from '../../components/CarouselPhoto/CarouselPhoto';
 import UserViewer from '../../components/UsersViewer/UserViewer';
 import Error from '../../components/Error';
 

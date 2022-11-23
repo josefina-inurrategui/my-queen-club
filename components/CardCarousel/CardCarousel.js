@@ -28,7 +28,7 @@ const CardCarousel = ({ carouselInfo, gallery, queen }) => {
       navigation={true}
       modules={[Navigation]}
       className="mySwiper"
-      style={{marginBottom:'40px'}}
+      style={{ marginBottom: '40px' }}
     >
       {
         carouselInfo.map((info, index) => (

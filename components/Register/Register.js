@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import styles from './register.module.css';
 
 const Register = () => {
-  const urlbase =process.env.NEXT_PUBLIC_URL_BASE;
+  const urlbase = process.env.NEXT_PUBLIC_URL_BASE;
   const [isValid, setIsValid] = useState(true);
   const [validEmail, setValidEmail] = useState({});
   const [validUserName, setValidUserName] = useState({});
@@ -36,7 +36,7 @@ const Register = () => {
       setValidUserName(json.userName);
     }
     if (json.status === 200) {
-      router.push('/login');
+      window.location.replace('/login');
     }
   };
 
@@ -69,7 +69,20 @@ const Register = () => {
           {errors.lastName && <p className={`mb-3 ${styles.text}`}>* Este campo es requerido</p>}
         <div className="input-group mb-3">
           <span className={`input-group-text ${styles.icon}`}><i className="bi bi-key"></i></span>
-          <input type="password" className={`form-control ${styles.placeholder}`} placeholder="Contraseña *" aria-label="Password" {...register('password', { required: '* Este campo es requerido', minLength: { value: 8, message: '* La contraseña debe contener al menos 8 caracteres' } })} />
+          <input
+            type="password"
+            className={`form-control ${styles.placeholder}`}
+            placeholder="Contraseña *"
+            aria-label="Password"
+            {...register('password', {
+              required: '* Este campo es requerido',
+              minLength: { value: 8, message: '* La contraseña debe contener al menos 8 caracteres' },
+              pattern: {
+                value: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
+                message: 'Debe contener una mayuscula y un numero',
+              },
+            })}
+          />
         </div>
           {errors.password && <p className={`mb-3 ${styles.text}`}>{errors.password.message}</p>}
         <div className="input-group mb-3">

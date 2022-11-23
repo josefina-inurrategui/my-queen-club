@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Footer from '../../components/Footer/Footer';
@@ -8,7 +7,6 @@ import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
 import CardGallery from '../../components/CardGallery/CardGallery';
 import styles from '../../styles/Galleries.module.css';
 import clientAxios from '../../config/clientAxios';
-import ModalEditGallery from '../../components/ModalEditGallery/ModalEditGallery';
 
 const Galleries = () => {
   const route = useRouter();
@@ -36,9 +34,9 @@ const Galleries = () => {
       <main className='mb-5 container-fluid'>
         <section className='row gx-0'>
           {
-            data?.length === 0 
-            ? <h2 className='text-center text-white'>
-                <span style={{ color: '#D44F80', textTransform:'capitalize' }}>
+            data?.length === 0
+              ? <h2 className='text-center text-white'>
+                <span style={{ color: '#D44F80', textTransform: 'capitalize' }}>
                   {Router.query.name}</span> NO TIENE GALERIAS DISPONIBLES
               </h2> : data?.map((info, index) => (
                 <>

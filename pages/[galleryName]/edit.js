@@ -1,24 +1,22 @@
-import React from 'react'
-import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import ModalSingIn from '../../components/ModalSingIn/ModalSingIn';
 import Footer from '../../components/Footer/Footer';
 import styles from '../../styles/Galleries.module.css';
 import ModalEditGallery from '../../components/ModalEditGallery/ModalEditGallery';
-import { useEffect } from 'react';
+
 import clientAxios from '../../config/clientAxios';
-import { useState } from 'react';
 
-const edit = () => {
+const Edit = () => {
+  const { query, push } = useRouter();
+  const nameGallery = query.galleryName;
+  const [galerias, setGalerias] = useState();
 
-  const{query,push}=useRouter();
-  const nameGallery=query.galleryName;
-  const[galerias,setGalerias]=useState()
-  useEffect(()=>{
+  useEffect(() => {
     clientAxios('galleries/admin')
-    .then(res=>setGalerias(res?.data?.find((or)=>or.galleryName===nameGallery)))
-     
-  },[ ])
+      .then(res => setGalerias(res?.data?.find((or) => or.galleryName === nameGallery)));
+  }, []);
 
   return (
     <div className={styles.bgHome}>
@@ -38,7 +36,7 @@ const edit = () => {
       </main>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default edit
+export default Edit;

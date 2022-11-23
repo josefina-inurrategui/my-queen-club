@@ -5,25 +5,23 @@ import styles from '../../styles/Home.module.css';
 import EditAccount from '../../components/EditAccount/EditAccount';
 import { useUser } from '../../context/userContext';
 import clientAxios from '../../config/clientAxios';
-import jwt_decode from "jwt-decode";
 import TableBuy from '../../components/TableBuy/TableBuy';
 import TableSus from '../../components/TableSus/TableSus';
 
 const User = ({ purchase }) => {
-
   const { userData, flagReload, setFlagReload } = useUser();
-  
+
   const [user, setUser] = useState(1);
   const router = useRouter();
-  const [compras, setCompras] = useState([])
-  const [name , setName] = useState("");
-  const [lastName , setLastName] = useState("");
-  const [role , setRole] = useState("client");
-  const [email , setEmail] = useState("");
+  const [compras, setCompras] = useState([]);
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [role, setRole] = useState('client');
+  const [email, setEmail] = useState('');
   const token = localStorage.getItem('accessToken');
-  const userToken = token?jwtDecode(token):false;
-  const [userName , setUserName] = useState("")
-  const [idUser , setIdUser] = useState(userToken?userToken.userId:'');
+  const userToken = token ? jwtDecode(token) : false;
+  const [userName, setUserName] = useState('');
+  const [idUser, setIdUser] = useState(userToken ? userToken.userId : '');
 
   /* const logout = () => {
     localStorage.clear();
@@ -33,29 +31,29 @@ const User = ({ purchase }) => {
 
   const infoUser = async () => {
     const response = await clientAxios.get(`user/${idUser}`);
-    console.log(idUser)
-    console.log(response.data,'RESPONSE')
+    console.log(idUser);
+    console.log(response.data, 'RESPONSE');
     setRole(response.data.role);
     setName(response.data.name);
     setLastName(response.data.lastName);
     setEmail(response.data.email);
-    setUserName(response.data.userName)
-  }
-  
+    setUserName(response.data.userName);
+  };
+
   const getCompras = async () => {
     const response = await clientAxios.get(`purchase/${idUser}`);
-    setCompras(response.data)
-  }
+    setCompras(response.data);
+  };
 
-  if(localStorage.getItem('accessToken') === null){
-    router.push('/')
+  if (localStorage.getItem('accessToken') === null) {
+    router.push('/');
   }
 
   useEffect(() => {
-    infoUser()
-    getCompras()
-  }, [])
-  
+    infoUser();
+    getCompras();
+  }, []);
+
   // useEffect(()=>{
   //   infoUser()
   // },[])
@@ -81,15 +79,15 @@ const User = ({ purchase }) => {
                   <div className={`nav-link ${styles.column}`}>
                     <span onClick={() => setUser(1)}>Editar cuenta</span>
                   </div>
-                  {role === "client" ?
-                    <div className={`nav-link ${styles.column}`}>
+                  {role === 'client'
+                    ? <div className={`nav-link ${styles.column}`}>
                       <span onClick={() => setUser(2)}>Mis pedidos</span>
-                    </div> :
-                    <div className={`nav-link ${styles.column}`}>
+                    </div>
+                    : <div className={`nav-link ${styles.column}`}>
                       <span onClick={() => setUser(2)}>Mis Ventas</span>
                     </div>}
-                  {role === "client" &&
-                    <div>
+                  {role === 'client'
+                    && <div>
                       {/* <div className={`nav-link ${styles.column}`}>
                         <span onClick={() => setUser(3)}>Método de pago</span>
                       </div> */}

@@ -2,8 +2,8 @@ import jwtDecode from 'jwt-decode';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
 import clientAxios from '../../config/clientAxios';
 import { useUser } from '../../context/userContext';
 
@@ -11,29 +11,30 @@ import styles from './navbar.module.css';
 
 const Navbar = () => {
   const router = useRouter();
-  const { setUserData,userData, flagReload, setFlagReload } = useUser();
-  const [role,setRole]=useState('')
- 
+  const {
+    setUserData, userData, flagReload, setFlagReload,
+  } = useUser();
+  const [role, setRole] = useState('');
 
   const logout = () => {
     localStorage.clear();
     setFlagReload(!flagReload);
     router.push('/');
-    window.location.reload()
+    window.location.reload();
   };
 
   useEffect(() => {
-    const tok = localStorage.getItem('accessToken')
+    const tok = localStorage.getItem('accessToken');
 
     if (tok !== null) {
-      setRole(jwtDecode(tok).role)
+      setRole(jwtDecode(tok).role);
       clientAxios('jwt')
         .then(res => console.log(res))
         .catch(err => {
           logout();
-        })
+        });
     }
-  }, [])
+  }, []);
 
   return (
     <nav className={`navbar navbar-expand-lg ${styles.bgNav}`}>
@@ -67,8 +68,8 @@ const Navbar = () => {
               </Link>
             </li>
             {
-              role==='admin' &&
-              <li className={`nav-item ${styles.navItem}`}>
+              role === 'admin'
+              && <li className={`nav-item ${styles.navItem}`}>
               <Link href="/admin" passHref>
                 <span className={`nav-link ${styles.colorLink} px-0 px-lg-3`}>Admin</span>
               </Link>

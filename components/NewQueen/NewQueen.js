@@ -2,57 +2,52 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import styles from '../../styles/Forms.module.css';
 import clientAxios from '../../config/clientAxios';
 import CloudinaryUploadImage from '../CloudinaryUploadImage/CloudinaryUploadImage';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from "yup";
- 
-const style='mb-3 col-md-6 col-sm-12 p-1'
 
+const style = 'mb-3 col-md-6 col-sm-12 p-1';
 
 const NewQueen = ({ setQueen }) => {
- 
   const schema = Yup.object({
-    name: Yup.string().required("Nombre es requerido"),
-    lastName: Yup.string().required("Apellido es requerido"),
+    name: Yup.string().required('Nombre es requerido'),
+    lastName: Yup.string().required('Apellido es requerido'),
     email: Yup.string()
-      .email("Formato Invalido")
-      .required("Email es requerido"),
-    password:Yup.string()
-    .min(3, 'La contraseña debe tener 3 caracteres como minimo')
-    .matches(/[A-Z]/, 'Password requires an uppercase letter')
-    .max(25, 'La contraseña puede tener 25 caracteres como maximo')
-    .required("Contraseña es requerida")
-
+      .email('Formato Invalido')
+      .required('Email es requerido'),
+    password: Yup.string()
+      .min(3, 'La contraseña debe tener 3 caracteres como minimo')
+      .matches(/[A-Z]/, 'Password requires an uppercase letter')
+      .max(25, 'La contraseña puede tener 25 caracteres como maximo')
+      .required('Contraseña es requerida'),
 
   }).required();
 
-
   const {
-    register, handleSubmit, formState: { errors }, reset
+    register, handleSubmit, formState: { errors }, reset,
   } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
 
-  const [image, setImage] = useState()
-  const [imageBanner, setImageBanner] = useState()
- 
-  const resetIamge=()=>{
-    setImage([])
-    setImageBanner([])
-  }
-  const onSubmit = async (data) => {
+  const [image, setImage] = useState();
+  const [imageBanner, setImageBanner] = useState();
 
-    data = {
+  const resetIamge = () => {
+    setImage([]);
+    setImageBanner([]);
+  };
+  const onSubmit = async (data) => {
+    const finalData = {
       ...data,
       coverImage: image[0],
-      photoCarrusel:imageBanner[0],
-    }
+      photoCarrusel: imageBanner[0],
+    };
 
-    console.log(data)
+    console.log(data);
 
-    clientAxios.post('/queen', data)
+    clientAxios.post('/queen', finalData)
       .then(response => {
         if (response.status === 200) {
           setQueen(true);
@@ -70,7 +65,7 @@ const NewQueen = ({ setQueen }) => {
         }
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         Swal.fire({
           icon: 'error',
           iconColor: '#D44F80',
@@ -84,15 +79,15 @@ const NewQueen = ({ setQueen }) => {
   };
 
   const handleImage = (data) => {
-    setImage(data)
-  }
+    setImage(data);
+  };
   const handleImageBanner = (data) => {
-    setImageBanner(data)
-  }
+    setImageBanner(data);
+  };
 
   return (
     <form className="col-8" onSubmit={handleSubmit(onSubmit)}>
-      <h2 style={{color:'#D44F80'}}>CREAR QUEEN</h2>
+      <h2 style={{ color: '#D44F80' }}>CREAR QUEEN</h2>
 
       <div className='d-md-flex flex-wrap justify-content-between'>
         <div className={style}>
@@ -114,7 +109,7 @@ const NewQueen = ({ setQueen }) => {
         <div className={style}>
           <label htmlFor="exampleInputEmail4" className={`form-label ${styles.title}`}>Contraseña</label>
           <input type="text" className={`form-control ${styles.placeholder}`} id="exampleInputEmail4" aria-describedby="emailHelp" {...register('password', { required: true })} />
-          {errors.password &&<span className='text-danger' >{errors.password.message}</span>
+          {errors.password && <span className='text-danger' >{errors.password.message}</span>
           }
         </div>
 
@@ -122,8 +117,7 @@ const NewQueen = ({ setQueen }) => {
       <div className="mb-3">
         {
           image?.length > 0 ? <button className='btn btn-primary' disabled>Cargar Portada</button>
-            :
-            <CloudinaryUploadImage onSave={handleImage} label="Cargar Portada" />
+            : <CloudinaryUploadImage onSave={handleImage} label="Cargar Portada" />
         }
 
       </div>
@@ -136,8 +130,7 @@ const NewQueen = ({ setQueen }) => {
       <div className="mb-3">
         {
           imageBanner?.length > 0 ? <button className='btn btn-primary' disabled>Cargar Banner</button>
-            :
-            <CloudinaryUploadImage onSave={handleImageBanner} label="Cargar Banner" />
+            : <CloudinaryUploadImage onSave={handleImageBanner} label="Cargar Banner" />
         }
 
       </div>
@@ -148,7 +141,7 @@ const NewQueen = ({ setQueen }) => {
 
       </div>
       <div>
-        <button type="submit" disabled={image?.length>0?false:true} className={`btn btn-primary`}>CREAR QUEEN</button>
+        <button type="submit" disabled={!(image?.length > 0)} className={'btn btn-primary'}>CREAR QUEEN</button>
       </div>
     </form>
   );

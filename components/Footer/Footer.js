@@ -60,7 +60,12 @@ const Footer = () => {
             <p className={`m-0 text-center ${styles.title}`}>My Queens Club - Todos los derechos reservados © 2022</p>
           </div>
           <div className='col-lg-6 col-md-12 py-3'>
-            <p className={`m-0 text-center ${styles.title}`}>Sitio web realizado por <a href="https://www.lagerdevs.com/" className={`text-decoration-none ${styles.condition}`} target='_blank' rel='noreferrer'>Lager Devs</a></p>
+            <p className={`m-0 text-center ${styles.title}`}>
+              Sitio web realizado por
+              <a href="https://www.linkedin.com/in/fabricio-alberto-597b17220/" className={`text-decoration-none ${styles.condition}`} target='_blank' rel='noreferrer'> Fabricio Alberto </a>
+               y
+              <a href="https://www.linkedin.com/in/facundo-nahuel-casal-471869208/" className={`text-decoration-none ${styles.condition}`} target='_blank' rel='noreferrer'> Facundo Casal</a>
+              </p>
           </div>
         </div>
       </div>

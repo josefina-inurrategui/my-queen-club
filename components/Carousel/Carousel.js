@@ -1,16 +1,17 @@
 import Image from 'next/image';
 import PropTypes from 'prop-types';
-import styles from './carousel.module.css';
 import { useRouter } from 'next/router';
+import styles from './carousel.module.css';
+
 const Carousel = ({ carouselInfo, carouselInfoMobile }) => {
-   const{push}=useRouter()
-   
-  const goQueen=(name)=>{
-    push(`/galleries/${name}`)
-  }
-  const goQueens=()=>{
-    push('/queens')
-  }
+  const { push } = useRouter();
+
+  const goQueen = (name) => {
+    push(`/galleries/${name}`);
+  };
+  const goQueens = () => {
+    push('/queens');
+  };
 
   return (
     <>                                                      {/* d-none */}
@@ -31,7 +32,7 @@ const Carousel = ({ carouselInfo, carouselInfoMobile }) => {
                   <div className={`${styles.container2} h-100  d-flex flex-column justify-content-center align-items-md-start  align-items-lg-start align-items-center `}>
                     <h3 className={styles.title}>{info?.name}</h3>
                     <div className='mt-4'>
-                      <button className={styles.btn_banner2} onClick={()=>goQueen(info?.name)}> Ver queen</button>
+                      <button className={styles.btn_banner2} onClick={() => goQueen(info?.name)}> Ver queen</button>
                       <button className={styles.btn_banner} onClick={goQueens}> Mas queens</button>
                     </div>
                   </div>
