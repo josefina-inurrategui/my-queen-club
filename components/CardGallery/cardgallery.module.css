@@ -9,6 +9,10 @@
   color: var(--secondary-color);
 }
 
+.cardImg{
+  height: 400px;
+}
+
 .imageQuantity {
   display: flex;
   font-size: 13.2px;
@@ -51,5 +55,14 @@
   .button {
     line-height: normal;
     padding: .3rem .5rem;
+  }
+  .cardImg{
+    height: 250px;
+  }
+}
+
+@media (max-width: 400px){
+  .cardImg{
+    height: 200px;
   }
 }

@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 const CardCarousel = ({ carouselInfo, gallery, queen }) => {
   return (
     <Swiper
-      slidesPerView={1}
+      slidesPerView={2}
       spaceBetween={1}
       breakpoints={{
         640: {

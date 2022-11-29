@@ -110,21 +110,6 @@ const ModalEditGallery = ({ galeria }) => {
                     </div>
 
                 </section>
-                <h4 className='text-white'>FOTOS SUBSCRIPCION</h4>
-                <section className={`w-100 d-flex flex-wrap align-items-center justify-content-center ${styles.container_photos}`}>
-
-                    {galeria.photos.map((res, i) => {
-                      return (
-                            <div className='col-md-3 m-2 d-flex' key={i}>
-                                <img src={res} style={{ width: '100%' }} alt={galeria?.galleryName}/>
-                            </div>
-                      );
-                    })}
-                    <div className='col-md-3 m-2 d-flex' style={{ border: '1px solid #fff', maxHeight: '50px' }}>
-                        <CloudinaryUploadImage onSave={handleGaleria} label='+ Agregar' />
-                    </div>
-
-                </section>
                 {/* <CloudinaryUploadImage onSave={handleCover} label='+' />
                  <CloudinaryUploadImage onSave={handleThree} label='+' />
                  <CloudinaryUploadImage onSave={handleBlur} label='+' /> */}
